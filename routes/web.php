@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes require inside directory
@@ -30,6 +26,7 @@ Route::get('/', function () {
 require('admin/admin.php');
 require('vendor/vendor.php');
 require('customer/customer.php');
+require('front/front.php');
 
 
 
