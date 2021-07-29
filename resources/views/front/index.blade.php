@@ -2,10 +2,6 @@
 
 
   @section('content')
-  
-        <!-- start header area -->
-        @include('front.include.header')
-        <!-- end header area -->
 
         <!-- start fancybox area -->
             @include('front.include.fancybox')
@@ -34,81 +30,26 @@
                             <div class="single-category cat-height item-animation">
                                 <img src="{{asset('front/assets/images/home1/category/image1.jpg')}}" alt="Category Image"/>
                                 <div class="content">
-                                    <h5>Apple - 11 Inch iPad Pro</h5>
-                                    <p>new generation</p>
-                                    <p>3 products</p>
-                                    <a href="shop-4-column.html">view more</a>
+                                    <h5>Latest Shop</h5>
+                                    <a href="shop-4-column.html">View All</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-9 col-lg-7">
                             <div class="row">
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-category item-animation">
-                                        <img src="{{asset('front/assets/images/home1/category/image2.jpg')}}" alt="Category Image"/>
-                                        <div class="content">
-                                            <h5>gadgets</h5>
-                                            <p>new generation</p>
-                                            <p>3 products</p>
-                                            <a href="shop-4-column.html">view more</a>
+                                @forelse ($shop as $shops)
+                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                        <div class="single-category item-animation">
+                                            <img src="{{asset('vendor/shop/'.$shops->logo)}}" alt="Category Image"/>
+                                            <div class="content">
+                                                <h5>{{$shops->shop_name}}</h5>
+                                                <a href="{{route('shop.single',array('id'=>$shops->id,'slug'=>$shops->shop_slug))}}">view more</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-category item-animation">
-                                        <img src="{{asset('front/assets/images/home1/category/image3.jpg')}}" alt="Category Image"/>
-                                        <div class="content">
-                                            <h5>furniture</h5>
-                                            <p>decorate room</p>
-                                            <p>5 products</p>
-                                            <a href="shop-4-column.html">view more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-category item-animation">
-                                        <img src="{{asset('front/assets/images/home1/category/image4.jpg')}}" alt="Category Image"/>
-                                        <div class="content">
-                                            <h5>glasses</h5>
-                                            <p>new generation</p>
-                                            <p>7 products</p>
-                                            <a href="shop-4-column.html">view more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-category item-animation">
-                                        <img src="{{asset('front/assets/images/home1/category/image5.jpg')}}" alt="Category Image"/>
-                                        <div class="content">
-                                            <h5>watches</h5>
-                                            <p>new generation</p>
-                                            <p>1 products</p>
-                                            <a href="shop-4-column.html">view more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-category item-animation">
-                                        <img src="{{asset('front/assets/images/home1/category/image6.jpg')}}" alt="Category Image"/>
-                                        <div class="content">
-                                            <h5>digital camera</h5>
-                                            <p>new generation</p>
-                                            <p>4 products</p>
-                                            <a href="shop-4-column.html">view more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-category item-animation">
-                                        <img src="{{asset('front/assets/images/home1/category/image7.jpg')}}" alt="Category Image"/>
-                                        <div class="content">
-                                            <h5>shoes</h5>
-                                            <p>best shoes</p>
-                                            <p>2 products</p>
-                                            <a href="shop-4-column.html">view more</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                @empty
+                                    <p>No Shop Found</p>
+                                @endforelse
                             </div>
                         </div>
                     </div>

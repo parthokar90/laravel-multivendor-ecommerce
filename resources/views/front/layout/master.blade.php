@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
      <!--==== favicon css ====-->
-     <link rel="shortcut icon" href="{{asset('front/')}}assets/images/favicon.png" type="image/x-icon" />
+     <link rel="shortcut icon" href="{{asset('front/assets/images/favicon.png')}}" type="image/x-icon" />
 
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -50,6 +50,10 @@
     <link rel="stylesheet" href="{{asset('front/assets/css/responsive.css')}}">
 </head>
 <body>
+      <!-- start header area -->
+      @include('front.include.header')
+      <!-- end header area -->
+      
     <!-- start preloader area -->
     <div class="preloader">
         <img src="{{asset('front/assets/images/loader.gif')}}" alt="Preloader">

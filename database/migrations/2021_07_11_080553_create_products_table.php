@@ -27,7 +27,8 @@ class CreateProductsTable extends Migration
             $table->text('short_description');
             $table->text('long_description');
             $table->unsignedBigInteger('vendor_id');
-            $table->unsignedBigInteger('created_id');
+            $table->unsignedBigInteger('shop_id');
+            $table->unsignedBigInteger('created_by');
             $table->tinyInteger('status');
             $table->timestamps();
         });
