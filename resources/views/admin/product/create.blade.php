@@ -29,12 +29,12 @@
                              
                              <div class="form-group">
                               <label>Product Name</label>
-                               <input type="text" class="form-control" placeholder="Product Name"/>
+                               <input type="text" name="product_name" class="form-control" placeholder="Product Name"/>
                              </div>
 
                              <div class="form-group">
                               <label>Product Description</label>
-                               <textarea class="form-control" name="" placeholder="Product Description"></textarea>
+                               <textarea class="form-control" name="long_description" placeholder="Product Description"></textarea>
                              </div>
 
 
@@ -54,17 +54,17 @@
 
                                        <div class="form-group">
                                         <label>Regular Price</label>
-                                        <input type="text" class="form-control" placeholder="Regular Price"/>
+                                        <input type="text" name="regular_price" class="form-control" placeholder="Regular Price"/>
                                        </div>
 
                                        <div class="form-group">
                                         <label>Sell Price</label>
-                                        <input type="text" class="form-control" placeholder="Sell Price"/>
+                                        <input type="text" name="sale_price" class="form-control" placeholder="Sell Price"/>
                                        </div>
 
                                        <div class="form-group">
                                         <label>Cost Price</label>
-                                        <input type="text" class="form-control" placeholder="Cost Price"/>
+                                        <input type="text" name="cost_price" class="form-control" placeholder="Cost Price"/>
                                        </div>
 
                                     </div>
@@ -72,12 +72,12 @@
                                       <h4>Stock Information</h4>
                                        <div class="form-group">
                                         <label>Stock Quantity</label>
-                                        <input type="text" class="form-control" placeholder="Stock Quantity"/>
+                                        <input type="text" name="quantity" class="form-control" placeholder="Stock Quantity"/>
                                        </div>
 
                                        <div class="form-group">
                                         <label>Alert Quantity</label>
-                                        <input type="text" class="form-control" placeholder="Alert Quantity"/>
+                                        <input type="text" name="alert_quantity" class="form-control" placeholder="Alert Quantity"/>
                                        </div>
                                     
                                     </div>
@@ -85,7 +85,7 @@
                                       <h4>Shipping Information</h4>
                                        <div class="form-group">
                                         <label>Shipping</label>
-                                        <input type="text" class="form-control" placeholder="Shipping"/>
+                                        <input type="text" name="dimension" class="form-control" placeholder="Shipping"/>
                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
@@ -128,7 +128,7 @@
                              </div>
                              <div class="form-group mt-3">
                               <label>Short Description</label>
-                               <textarea class="form-control" name="" placeholder="Product Short Description"></textarea>
+                               <textarea class="form-control" name="short_description" placeholder="Product Short Description"></textarea>
                              </div>
                            </div>
                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
@@ -143,21 +143,87 @@
                                 </div>
                             </div>
                                 <!-- end card-body -->
-
-                              <div class="card mb-3">
+                                <div class="card mb-3">
                                   <div class="card-header">
-                                      <h3><i class="fab fa-bandcamp"></i> Chose Brand</h3>
+                                      <h3><i class="fas fa-star"></i>Featured product?</h3>
                                   </div>
                                   <div class="card-body text-center">
                                       <div class="row">
                                           <div class="col-lg-12">
-                                           <select class="form-control">
-                                             <option value="">1</option>
+                                            <input type="radio" id="f1" name="is_featured" value="1">
+                                            <label for="f1"> Yes</label><br>
+                                            <input type="radio" id="f2" name="is_featured" value="0">
+                                            <label for="f2"> No</label><br>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div> 
+
+                                <div class="card mb-3">
+                                  <div class="card-header">
+                                      <h3><i class="fas fa-certificate"></i> Select Category</h3>
+                                  </div>
+                                  <div class="card-body text-center">
+                                      <div class="row">
+                                          <div class="col-lg-12" style="height: 100px;  overflow-y: scroll;">
+                                            <input type="checkbox" id="vehicle1" name="category_id[]" value="Bike">
+                                            <label for="vehicle1"> Parent</label><br>
+                                            <input class="ml-4" type="checkbox" id="vehicle2" name="category_id[]" value="Car">
+                                            <label for="vehicle2"> Chils</label><br>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>  
+
+                              <div class="card mb-3">
+                                  <div class="card-header">
+                                      <h3><i class="fab fa-bandcamp"></i> Select Brand</h3>
+                                  </div>
+                                  <div class="card-body text-center">
+                                      <div class="row">
+                                          <div class="col-lg-12">
+                                           <select class="form-control" name="brand_id">
+                                             @foreach($brand as $brands)
+                                              <option value="{{$brands->id}}">{{$brands->brand_name}} </option>
+                                             @endforeach 
                                            </select>
                                           </div>
                                       </div>
                                   </div>
                               </div>
+
+                              <div class="card mb-3">
+                                <div class="card-header">
+                                    <h3><i class="fas fa-user"></i> Select Vendor</h3>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                         <select class="form-control" name="vendor_id">
+                                           <option value="">Select</option>
+                                           @foreach($vendor as $vendors)
+                                             <option value="{{$vendors->id}}">{{$vendors->first_name}} {{$vendors->last_name}}</option>
+                                           @endforeach 
+                                         </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mb-3">
+                              <div class="card-header">
+                                  <h3><i class="fab fa-bandcamp"></i> Select Shop</h3>
+                              </div>
+                              <div class="card-body text-center">
+                                  <div class="row">
+                                      <div class="col-lg-12">
+                                       <select class="form-control" name="shop_id">
+                                         <option value="">1</option>
+                                       </select>
+                                      </div>
+                                  </div>
+                               </div>
+                            </div>
 
                               <div class="card mb-3">
                                 <div class="card-header">
@@ -224,8 +290,10 @@
       return false;
     }
     let types = $("#attribute_type :selected").text();
+    let types_val = $("#attribute_type :selected").val();
     let values = $("#att_value :selected").text();
-    $("#att_table").append('<tr> <td>'+types+'</td> <td>'+values+'</td> <td><input type="number" style="width:70px"></td> <td><input type="number" style="width:70px"></td> <td><input type="number" style="width:70px"></td> <td><input type="file"></td> <td>Delete</td> </tr>');
+    let values_val = $("#att_value :selected").val();
+    $("#att_table").append('<tr> <td><input type="hidden" name="type_id[]" value="'+types_val+'">'+types+'</td> <td><input type="hidden" name="value_id[]" value="'+values_val+'">'+values+'</td> <td><input type="number" name="att_qty[]" style="width:70px"></td> <td><input type="number" name="att_alert_qty[]" style="width:70px"></td> <td><input type="number" name="att_sale_price[]" style="width:70px"></td> <td><input type="file" name="att_image[]"></td> <td>Delete</td> </tr>');
     $("#att_table").show();
  });
 </script>

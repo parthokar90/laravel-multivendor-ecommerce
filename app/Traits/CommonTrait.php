@@ -6,6 +6,7 @@ use App\Models\admin\Country;
 use App\Models\admin\Brand;
 use App\Models\admin\Attribute;
 use App\Models\vendor\Shop;
+use App\Models\vendor\Vendor;
 
 trait CommonTrait {
 
@@ -38,6 +39,12 @@ trait CommonTrait {
          $data = Shop::where('status',1)->orderBy('id','DESC')->get();
          return $data;
     }
+
+      //all active shop list
+      public function activeVendor() {
+          $data = Vendor::where('status',1)->orderBy('id','DESC')->get();
+          return $data;
+     }
 
 
     

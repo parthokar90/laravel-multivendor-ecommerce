@@ -16,6 +16,8 @@ class CreateProductAttributesTable extends Migration
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('type_id');
+            $table->unsignedBigInteger('value_id');
             $table->bigInteger('quantity')->default(0);
             $table->bigInteger('alert_quantity')->default(0);
             $table->decimal('regular_price',18,2);

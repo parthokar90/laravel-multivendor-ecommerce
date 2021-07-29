@@ -22,10 +22,12 @@ class CreateProductsTable extends Migration
             $table->decimal('sale_price',18,2);
             $table->decimal('cost_price',18,2);
             $table->string('image',255);
+            $table->tinyInteger('is_featured')->default(0);
             $table->string('dimension',100);
             $table->string('bar_code',100);
             $table->text('short_description');
             $table->text('long_description');
+            $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('vendor_id');
             $table->unsignedBigInteger('shop_id');
             $table->unsignedBigInteger('created_by');

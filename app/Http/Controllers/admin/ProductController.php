@@ -34,7 +34,9 @@ class ProductController extends Controller
     public function create()
     {
         $attributeType=$this->activeType();
-        return view('admin.product.create',compact('attributeType'));
+        $vendor=$this->activeVendor();
+        $brand=$this->activeBrand();
+        return view('admin.product.create',compact('attributeType','vendor','brand'));
     }
 
     /**

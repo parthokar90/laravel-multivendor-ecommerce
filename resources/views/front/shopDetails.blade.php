@@ -110,7 +110,7 @@
                 <div class="col-xl-9 col-lg-8">
                     <div class="content right-content">
                         <div class="title d-flex justify-content-between align-items-center">
-                            <h4>Home/Shop</h4>
+                            <h4>{{$shop->shop_name}}</h4>
                             <ul class="d-flex">
                                 <li><a href="shop-list-left.html"><i class="flaticon-list"></i></a></li>
                                 <li><a href="shop-3-column-sidebar.html" class="active"><i class="flaticon-grid"></i></a></li>
