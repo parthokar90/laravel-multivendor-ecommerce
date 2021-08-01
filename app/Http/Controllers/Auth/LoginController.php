@@ -64,9 +64,9 @@ class LoginController extends Controller
         ->with('message','These credentials do not match our records');
     }
 
-     public function showVendorLoginForm()
+    public function showVendorLoginForm()
     {
-        return view('vendor.auth.login', ['url' => 'blogger']);
+        return view('vendor.auth.login', ['url' => 'vendor']);
     }
 
     public function vendorLogin(Request $request)
@@ -76,11 +76,31 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        if (Auth::guard('vendor')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+        if (Auth::guard('vendor')->attempt(['email' => $request->email, 'password' => $request->password,'status'=>1], $request->get('remember'))) {
 
             return redirect()->intended('/vendor/dashboard');
         }
         return redirect()->route('vendor.login')
+        ->with('message','These credentials do not match our records');
+    }
+
+    public function showCustomerLoginForm()
+    {
+        return view('auth.login', ['url' => 'customer']);
+    }
+
+    public function customerLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if (Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password,'status'=>1], $request->get('remember'))) {
+
+            return redirect()->intended('/customer/dashboard');
+        }
+        return redirect()->route('customer.login')
         ->with('message','These credentials do not match our records');
     }
 }

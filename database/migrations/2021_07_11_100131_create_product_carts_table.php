@@ -14,10 +14,13 @@ class CreateProductCartsTable extends Migration
     public function up()
     {
         Schema::create('product_carts', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('vendor_id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('attribute_id');
+            $table->unsignedBigInteger('vendor_id');
+            $table->unsignedBigInteger('shop_id');
+            $table->unsignedBigInteger('attribute_type_id');
+            $table->unsignedBigInteger('attribute_value_id');
             $table->decimal('price',18,2);
             $table->bigInteger('quantity');
             $table->decimal('sub_total',18,2);

@@ -40,11 +40,12 @@ trait CommonTrait {
          return $data;
     }
 
-      //all active shop list
-      public function activeVendor() {
+     //all active shop list
+     public function activeVendor() {
           $data = Vendor::where('status',1)->orderBy('id','DESC')->get();
           return $data;
      }
+
 
 
     

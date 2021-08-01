@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
             return redirect('/vendor/dashboard');
         }
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            return redirect('/customer/dashboard');
         }
 
         return $next($request);

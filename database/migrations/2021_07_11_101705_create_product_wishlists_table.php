@@ -16,7 +16,6 @@ class CreateProductWishlistsTable extends Migration
         Schema::create('product_wishlists', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('vendor_id');
             $table->unsignedBigInteger('product_id');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();

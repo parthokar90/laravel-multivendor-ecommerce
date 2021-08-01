@@ -1,27 +1,52 @@
   @extends('front.layout.master')
-
-
+  @section('title') Home @endsection
   @section('content')
 
-        <!-- start fancybox area -->
-            @include('front.include.fancybox')
-        <!-- end fancybox area -->
+    <!-- start fancybox area -->
+        @include('front.include.fancybox')
+    <!-- end fancybox area -->
 
-        <!-- start banner area -->
-            @include('front.include.banner')
-        <!-- end banner area -->
+    <!-- start banner area -->
+    <section class="home1 banner" data-img="{{asset('front/assets/images/home1/banner.jpg')}}">
+            <div class="banner-slider">
+                @forelse ($slider as $sliders)
+                <div class="slider-item">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-7">
+                                <div class="text-area">
+                                    <h4 data-animation="fadeInUp" data-delay=".2s">{{$sliders->text}}</h4>
+                                    <h1 data-animation="fadeInUp" data-delay=".4s">{{$sliders->text}}</h1>
+                                    <p data-animation="fadeInUp" data-delay=".6s">{{$sliders->description}}</p>
+                                    <a href="shop-3-column-sidebar.html" class="button-style1" data-animation="fadeInUp" data-delay=".8s">shop now <span class="btn-dot"></span></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-5">
+                                <div class="image-area image1" data-animation="fadeInRight" data-delay=".3s">
+                                    <img src="{{asset('admin/slider/'.$sliders->image)}}" alt="Banner Image"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                <p>No Slider Found</p>
+               @endforelse
+            </div>
+    </section>
+    <!-- end banner area -->
 
-        <!-- start feature area -->
-            @include('front.include.feature')
-        <!-- end feature area -->
+    <!-- start feature area -->
+      @include('front.include.feature')
+    <!-- end feature area -->
 
-             <!-- start category area -->
+     <!-- start shop area -->
       <section class="home1 category">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h3>Shop List</h3>
+                        <h3>shop list</h3>
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -57,15 +82,15 @@
             </div>
         </div>
       </section>
-     <!-- end category area -->
+     <!-- end shop area -->
 
-       <!-- start category area -->
+     <!-- start category area -->
         <section class="home1 category">
           <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h3>product categories</h3>
+                        <h3>product brands</h3>
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -74,81 +99,27 @@
                             <div class="single-category cat-height item-animation">
                                 <img src="{{asset('front/assets/images/home1/category/image1.jpg')}}" alt="Category Image"/>
                                 <div class="content">
-                                    <h5>Apple - 11 Inch iPad Pro</h5>
-                                    <p>new generation</p>
-                                    <p>3 products</p>
-                                    <a href="shop-4-column.html">view more</a>
+                                    <h5>latest brand</h5>
+                                    <a href="shop-4-column.html">view all</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-9 col-lg-7">
                             <div class="row">
+                                @forelse ($brand as $brands)
                                 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                                     <div class="single-category item-animation">
-                                        <img src="{{asset('front/assets/images/home1/category/image2.jpg')}}" alt="Category Image"/>
+                                        <img src="{{asset('admin/brand/'.$brands->image)}}" alt="Category Image"/>
                                         <div class="content">
-                                            <h5>gadgets</h5>
-                                            <p>new generation</p>
-                                            <p>3 products</p>
-                                            <a href="shop-4-column.html">view more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-category item-animation">
-                                        <img src="{{asset('front/assets/images/home1/category/image3.jpg')}}" alt="Category Image"/>
-                                        <div class="content">
-                                            <h5>furniture</h5>
-                                            <p>decorate room</p>
-                                            <p>5 products</p>
-                                            <a href="shop-4-column.html">view more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-category item-animation">
-                                        <img src="{{asset('front/assets/images/home1/category/image4.jpg')}}" alt="Category Image"/>
-                                        <div class="content">
-                                            <h5>glasses</h5>
-                                            <p>new generation</p>
-                                            <p>7 products</p>
-                                            <a href="shop-4-column.html">view more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-category item-animation">
-                                        <img src="{{asset('front/assets/images/home1/category/image5.jpg')}}" alt="Category Image"/>
-                                        <div class="content">
-                                            <h5>watches</h5>
-                                            <p>new generation</p>
-                                            <p>1 products</p>
-                                            <a href="shop-4-column.html">view more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-category item-animation">
-                                        <img src="{{asset('front/assets/images/home1/category/image6.jpg')}}" alt="Category Image"/>
-                                        <div class="content">
-                                            <h5>digital camera</h5>
-                                            <p>new generation</p>
+                                            <h5>{{$brands->brand_name}}</h5>
                                             <p>4 products</p>
                                             <a href="shop-4-column.html">view more</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-category item-animation">
-                                        <img src="{{asset('front/assets/images/home1/category/image7.jpg')}}" alt="Category Image"/>
-                                        <div class="content">
-                                            <h5>shoes</h5>
-                                            <p>best shoes</p>
-                                            <p>2 products</p>
-                                            <a href="shop-4-column.html">view more</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                 @empty
+                                 <p>No Brand Found</p>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -158,7 +129,7 @@
       </section>
      <!-- end category area -->
 
-        <!-- start collection area -->
+     <!-- start collection area -->
         <section class="home1 collection">
             <div class="container">
                 <div class="row">
@@ -439,9 +410,9 @@
                 </div>
             </div>
         </section>
-        <!-- end collection area -->
+    <!-- end collection area -->
 
-        <!-- start offer area -->
+    <!-- start offer area -->
        <section class="home1 offer">
         <div class="container">
             <div class="row">
@@ -466,7 +437,7 @@
 
  
 
-       <!-- start featured area -->
+    <!-- start featured area -->
        <section class="home1 featured">
         <div class="container">
             <div class="row">
@@ -477,100 +448,12 @@
                 </div>
                 <div class="col-lg-12">
                     <div class="row featured-slider">
+                        @forelse ($featured as $featureds)
                         <div class="col-lg-3">
                             <div class="single-product">
                                 <div class="image-area">
-                                    <img src="{{asset('front/assets/images/home1/featured/p1a.jpg')}}" class="img-main" alt="Product Image"/>
-                                    <img src="{{asset('front/assets/images/home1/featured/p1b.jpg')}}" class="img-hover" alt="Product Image"/>
-                                    <span class="sale-status">sale</span>
-                                    <div class="action">
-                                        <ul class="d-flex">
-                                            <li>
-                                                <a href="wishlist.html">
-                                                    <i class="far fa-heart"></i>
-                                                    <p class="my-tooltip">add to wishlist</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="far fa-eye"></i>
-                                                    <p class="my-tooltip">quick view</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="cart.html">
-                                                    <i class="flaticon-shopping-cart"></i>
-                                                    <p class="my-tooltip">add to cart</p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="bottom-area">
-                                    <a href="shop-detail-left.html">
-                                        <h5>Contrast Print T-Shirt</h5>
-                                    </a>
-                                    <p><span>$110</span> - $78</p>
-                                    <ul class="rating d-flex">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="single-product">
-                                <div class="image-area">
-                                    <img src="{{asset('front/assets/images/home1/featured/p2a.jpg')}}" class="img-main" alt="Product Image"/>
-                                    <img src="{{asset('front/assets/images/home1/featured/p2b.jpg')}}" class="img-hover" alt="Product Image"/>
-                                    <span class="sale-status">sale</span>
-                                    <div class="action">
-                                        <ul class="d-flex">
-                                            <li>
-                                                <a href="wishlist.html">
-                                                    <i class="far fa-heart"></i>
-                                                    <p class="my-tooltip">add to wishlist</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="far fa-eye"></i>
-                                                    <p class="my-tooltip">quick view</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="cart.html">
-                                                    <i class="flaticon-shopping-cart"></i>
-                                                    <p class="my-tooltip">add to cart</p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="bottom-area">
-                                    <a href="shop-detail-left.html">
-                                        <h5>Black Fit Polo Shirt</h5>
-                                    </a>
-                                    
-                                    <p><span>$110</span> - $78</p>
-                                    <ul class="rating d-flex">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="single-product">
-                                <div class="image-area">
-                                    <img src="{{asset('front/assets/images/home1/featured/p3a.jpg')}}" class="img-main" alt="Product Image"/>
-                                    <img src="{{asset('front/assets/images/home1/featured/p3b.jpg')}}" class="img-hover" alt="Product Image"/>
+                                    <img src="{{asset('vendor/product/'.$featureds->image)}}" class="img-main" alt="Product Image"/>
+                                    <img src="{{asset('vendor/product/'.$featureds->image)}}" class="img-hover" alt="Product Image"/>
                                     <span class="sale-status">new</span>
                                     <div class="action">
                                         <ul class="d-flex">
@@ -586,20 +469,13 @@
                                                     <p class="my-tooltip">quick view</p>
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a href="cart.html">
-                                                    <i class="flaticon-shopping-cart"></i>
-                                                    <p class="my-tooltip">add to cart</p>
-                                                </a>
-                                            </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="bottom-area">
                                     <a href="shop-detail-left.html">
-                                        <h5>T-shirt with Chest Pocket</h5>
+                                        <h5>{{$featureds->product_name}}</h5>
                                     </a>
-                                    
                                     <p><span>$110</span> - $78</p>
                                     <ul class="rating d-flex">
                                         <li><i class="fas fa-star"></i></li>
@@ -611,101 +487,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="single-product">
-                                <div class="image-area">
-                                    <img src="{{asset('front/assets/images/home1/featured/p4a.jpg')}}" class="img-main" alt="Product Image"/>
-                                    <img src="{{asset('front/assets/images/home1/featured/p4b.jpg')}}" class="img-hover" alt="Product Image"/>
-                                    <span class="sale-status">sale</span>
-                                    <div class="action">
-                                        <ul class="d-flex">
-                                            <li>
-                                                <a href="wishlist.html">
-                                                    <i class="far fa-heart"></i>
-                                                    <p class="my-tooltip">add to wishlist</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="far fa-eye"></i>
-                                                    <p class="my-tooltip">quick view</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="cart.html">
-                                                    <i class="flaticon-shopping-cart"></i>
-                                                    <p class="my-tooltip">add to cart</p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="bottom-area">
-                                    <a href="shop-detail-left.html">
-                                        <h5>Muscle Fit Polo Shirt</h5>
-                                    </a>
-                                    
-                                    <p><span>$110</span> - $78</p>
-                                    <ul class="rating d-flex">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="single-product">
-                                <div class="image-area">
-                                    <img src="{{asset('front/assets/images/home1/featured/p3a.jpg')}}" class="img-main" alt="Product Image"/>
-                                    <img src="{{asset('front/assets/images/home1/featured/p3b.jpg')}}" class="img-hover" alt="Product Image"/>
-                                    <span class="sale-status">new</span>
-                                    <div class="action">
-                                        <ul class="d-flex">
-                                            <li>
-                                                <a href="wishlist.html">
-                                                    <i class="far fa-heart"></i>
-                                                    <p class="my-tooltip">add to wishlist</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="far fa-eye"></i>
-                                                    <p class="my-tooltip">quick view</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="cart.html">
-                                                    <i class="flaticon-shopping-cart"></i>
-                                                    <p class="my-tooltip">add to cart</p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="bottom-area">
-                                    <a href="shop-detail-left.html">
-                                        <h5>T-shirt with Chest Pocket</h5>
-                                    </a>
-                                    
-                                    <p><span>$110</span> - $78</p>
-                                    <ul class="rating d-flex">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        @empty
+                        <p>No Product Found</p>
+                       @endforelse
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+      </section>
     <!-- end featured area -->
 
      <!-- start new area -->

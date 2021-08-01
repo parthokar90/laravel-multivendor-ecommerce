@@ -16,22 +16,23 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('product_name',150);
+            $table->string('product_slug',150);
             $table->bigInteger('quantity')->default(0);
             $table->bigInteger('alert_quantity')->default(0);
-            $table->decimal('regular_price',18,2);
-            $table->decimal('sale_price',18,2);
-            $table->decimal('cost_price',18,2);
+            $table->decimal('regular_price',18,2)->default(0);
+            $table->decimal('sale_price',18,2)->default(0);
+            $table->decimal('cost_price',18,2)->default(0);
             $table->string('image',255);
+            $table->string('tag',100)->nullable();
             $table->tinyInteger('is_featured')->default(0);
-            $table->string('dimension',100);
-            $table->string('bar_code',100);
-            $table->text('short_description');
-            $table->text('long_description');
+            $table->string('dimension',100)->nullable();
+            $table->text('short_description')->nullable();
+            $table->text('long_description')->nullable();
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('vendor_id');
             $table->unsignedBigInteger('shop_id');
             $table->unsignedBigInteger('created_by');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

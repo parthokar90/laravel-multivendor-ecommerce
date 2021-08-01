@@ -56,10 +56,9 @@
                             <div class="select-area">
                                 <select class="select">
                                     <option value="">all categories</option>
-                                    <option value="1">woman's</option>
-                                    <option value="2">men's</option>
-                                    <option value="3">kid's</option>
-                                    <option value="4">clothing</option>
+                                     @foreach($allCategory as $categorys)
+                                      <option value="{{$categorys->id}}">{{$categorys->category_name}}</option>
+                                     @endforeach  
                                 </select>
                             </div>
                             <input type="search" placeholder="search for products..." class="inputs">
@@ -70,36 +69,47 @@
                 <div class="col-lg-2 col-md-3 col-sm-6 col-6 order-2 order-md-3">
                     <div class="notification">
                         <ul class="d-flex justify-content-end">
+                                @if(Auth::guard('vendor')->check())
+                                    @php $url=route('vendor.dashboard'); @endphp
+                                 @elseif(Auth::guard('web')->check())
+                                    @php $url=route('customer.dashboard'); @endphp
+                                  @else 
+                                    @php $url=route('customer.login'); @endphp
+                                @endif
                             <li>
-                                <a href="account.html">
+                                <a href="{{$url}}">
                                     <i class="flaticon-user-1"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="wishlist.html">
+                                <a href="{{route('wishlist.index')}}">
                                     <i class="flaticon-heart"></i>
-                                    <span class="quantity">01</span>
+                                    <span class="quantity">{{$wishlistCount}}</span>
                                 </a>
                             </li>
                             <li>
                                 <div class="dropdown">
                                     <button class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="flaticon-shopping-cart"></i>
-                                        <span class="quantity">02</span>
+                                        <span class="quantity">{{$cartCount}}</span>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                         <div class="heading d-flex justify-content-between">
-                                            <h5>3 items</h5>
-                                            <a href="cart.html">view cart</a>
+                                            <h5>{{$cartCount}} items</h5>
+                                            <a href="{{route('cart.index')}}">view cart</a>
                                         </div>
                                         <ul>
+                                            @foreach($cartItem as $item)
                                             <li>
                                                 <div class="d-flex position-relative">
                                                     <img src="{{asset('front/assets/images/home1/product/p1a.jpg')}}" alt="Product Image"/>
                                                     <div class="text">
                                                         <a href="shop-detail-left.html">
-                                                            <h5>Oversize Cotton Dress</h5>
+                                                            <h5>{{$item->product->product_name}}</h5>
                                                         </a>
+                                                        @if(isset($item->attributeType))
+                                                        <p>{{$item->attributeType->attribute_type}}: Red</p>
+                                                        @endif 
                                                         <p>1 X $78.00</p>
                                                         <a href="#!" class="icon">
                                                             <i class="far fa-times-circle"></i>
@@ -107,6 +117,7 @@
                                                     </div>
                                                 </div>
                                             </li>
+                                            @endforeach 
                                         </ul>
                                         <div class="total d-flex justify-content-between">
                                             <p>total</p>
@@ -165,8 +176,12 @@
                                 <li class="active">
                                     <a href="{{route('home.page')}}">home</a>
                                 </li>
-                                <li><a href="about.html">about</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
+                                <li><a href="#!">Account</a>
+                                    <ul class="submenu-list">
+                                        <li><a href="{{route('customer.login')}}">Customer Login</a></li>
+                                        <li><a href="{{route('vendor.login')}}">Vendor Login</a></li>
+                                    </ul>
+                                </li>
                                 <li><a href="#!">shop</a>
                                     <div class="mega-submenu">
                                         <div class="submenu-inside">
@@ -177,18 +192,7 @@
                                                             <div class="col-lg-3">
                                                                 <h4>collections</h4>
                                                                 <ul class="big-item">
-                                                                    <li>
-                                                                        <a href="shop-4-column-sidebar.html">
-                                                                            spring summer collections
-                                                                            <span>Available in shop from May 2021</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="shop-3-column-sidebar.html">
-                                                                            fall winter collections
-                                                                            <span>Available in shop from May 2021</span>
-                                                                        </a>
-                                                                    </li>
+                                                                 
                                                                     <li>
                                                                         <a href="shop-2-column-sidebar.html">
                                                                             Boishakhi collections
