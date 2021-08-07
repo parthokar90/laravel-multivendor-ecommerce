@@ -54,6 +54,14 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="category_type">Category Type</label>
+                            <select class="form-control" name="category_type" id="category_type">
+                              <option value="1" selected>Category</option>
+                              <option value="2">Blog</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label for="status">Status</label>
                             <select class="form-control" name="status" id="status">
                               <option value="1">Active</option>

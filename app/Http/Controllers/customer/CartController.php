@@ -4,6 +4,9 @@ namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Traits\CartTrait;
+use App\Models\customer\ProductCart;
+use App\Models\vendor\ProductAttribute;
 
 class CartController extends Controller
 {
@@ -11,6 +14,9 @@ class CartController extends Controller
     {
         $this->middleware('auth:web');
     }
+
+    //import trait
+    use CartTrait;
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +24,15 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $subTotal=0;
+        $item=$this->cartItem();
+        $subTotal=$this->cartSubTotal();
+        if($item->count()>0){
+            return view('customer.cart.cartItem',compact('item','subTotal'));
+        }else{
+            return view('front.error.cartEmpty');
+        }
+        
     }
 
     /**
@@ -39,7 +53,21 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //check product quantity must be greater then 0
+        if($request->quantity==0){
+          return back()->with('error','Quantity must not be zero');
+        }
+
+        $product_id   =$request->product_id;
+        $attribute_id =$request->attribute;
+
+        //check product has attribute or not
+        $product=ProductAttribute::where('product_id',$product_id)->first();
+        if($product->type_id!='' ){
+
+        }
+     
+
     }
 
     /**
@@ -75,15 +103,16 @@ class CartController extends Controller
     {
         //
     }
-
+   
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    public function delete($id){
+        $delete=ProductCart::findOrFail($id);
+        $delete->delete();
+        return back()->with('error','Item has been removed');
+    } 
 }

@@ -21,8 +21,9 @@ class CreateProductCartsTable extends Migration
             $table->unsignedBigInteger('shop_id');
             $table->unsignedBigInteger('attribute_type_id');
             $table->unsignedBigInteger('attribute_value_id');
-            $table->decimal('price',18,2);
+            $table->string('image',255)->nullable();
             $table->bigInteger('quantity');
+            $table->decimal('price',18,2);
             $table->decimal('sub_total',18,2);
             $table->timestamps();
         });

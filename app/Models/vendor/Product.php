@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\vendor\ProductGallry;
 use App\Models\vendor\Shop;
 use App\Models\vendor\Vendor;
+use App\Models\admin\Brand;
 use App\Models\vendor\ProductCategory;
 use App\Models\vendor\ProductAttribute;
 
@@ -43,4 +44,16 @@ class Product extends Model
       ->get();
       return $data;
     }
+
+    //this function show product multiple attribute value
+    public function productAttributeValue(){
+        return $this->hasMany(ProductAttribute::class,'product_id');
+    }
+
+    //this function show product brand name
+    public function brand(){
+        return $this->belongsTo(Brand::class,'brand_id');
+    } 
+
+    
 }

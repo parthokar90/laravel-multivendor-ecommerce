@@ -57,6 +57,18 @@
                            @endif
                         </div>
                         <div class="form-group">
+                            <label for="category_type">Category Type</label>
+                            <select class="form-control" name="category_type" id="category_type">
+                                @if($category->category_type==1)
+                                <option value="1" selected>Category</option>
+                                <option value="2">Blog</option>
+                                  @else 
+                                  <option value="2" selected>Blog</option>
+                                  <option value="1" >Category</option>
+                                @endif
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="status">Status</label>
                             <select class="form-control" name="status" id="status">
                               @if($category->status==1)

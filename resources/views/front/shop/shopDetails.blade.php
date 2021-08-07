@@ -123,17 +123,17 @@
                              <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="single-item">
                                     <div class="image-area">
-                                        <a href="shop-detail.html">
-                                            <img src="{{asset('front/assets/images/home1/product/p5a.jpg')}}" class="img-active" alt="Product Image"/>
+                                        <a href="{{route('product.single',array('id'=>$products->id,'slug'=>$products->product_slug))}}">
+                                            <img src="{{asset('vendor/product/'.$products->image)}}" class="img-active" alt="Product Image"/>
                                         </a>
-                                        <a href="shop-detail.html">
-                                            <img src="{{asset('front/assets/images/home1/product/p5b.jpg')}}" class="img-hover" alt="Product Image"/>
+                                        <a href="{{route('product.single',array('id'=>$products->id,'slug'=>$products->product_slug))}}">
+                                            <img src="{{asset('vendor/product/'.$products->image)}}" class="img-hover" alt="Product Image"/>
                                         </a>
                                         <span class="sale-status">sale</span>
                                         <div class="action">
                                             <ul>
                                                 <li>
-                                                    <a href="wishlist.html">
+                                                    <a href="{{route('add.wishlist',$products->id)}}">
                                                         <i class="far fa-heart"></i>
                                                         <p class="my-tooltip">
                                                             add to wishlist

@@ -93,6 +93,8 @@ class CategoryController extends Controller
 
           $store->category_name=$request->category_name;
 
+          $store->category_type=$request->category_type;
+
           $store->slug=Str::slug($request->category_name);
 
           $store->image=$image_name;
@@ -139,6 +141,8 @@ class CategoryController extends Controller
           $category->parent_id=$request->parent_id;
 
           $category->category_name=$request->category_name;
+
+          $category->category_type=$request->category_type;
 
           $category->slug=Str::slug($request->category_name);
 

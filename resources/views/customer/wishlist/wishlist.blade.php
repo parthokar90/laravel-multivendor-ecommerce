@@ -20,30 +20,46 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+         <div class="container-fluid">
+             @include('message.message')
             <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- Start Page Content -->
             <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-                <table class="table table-bordered">
-                <tr>
-                    <th>Sl</th>
-                    <th>Product</th>
-                    <th>Image</th>
-                    <th>Action</th>
-                </tr>
-                @forelse($list as $key=>$item)
-                <tr>
-                    <td>{{++$key}}</td>
-                    <td>{{$item->product->product_name}}</td>
-                    <td><img width="50px" height="50px" src="{{asset('vendor/product/'.$item->product->image)}}"></td>
-                    <td></td>
-                </tr>
-                @empty
-                <p>No Data Found</p>
-               @endforelse
-            </table>
-     </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <div class="table-responsive">
+                            <table class="table text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th class="border-top-0">#</th>
+                                        <th class="border-top-0">Product</th>
+                                        <th class="border-top-0">Image</th>
+                                        <th class="border-top-0">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($list as $key=>$item)
+                                    <tr>
+                                        <td>{{++$key}}</td>
+                                        <td>{{$item->product->product_name}}</td>
+                                        <td><img width="50px" height="50px" src="{{asset('vendor/product/'.$item->product->image)}}"></td>
+                                        <td>
+                                            <form method="post" action="{{route('wishlist.destroy',$item->id)}}">
+                                                @csrf 
+                                                {{method_field('DELETE')}}
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @empty
+                                    <p>No Data Found</p>
+                                   @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 @endsection

@@ -51,17 +51,17 @@
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-7 order-3 order-md-2">
-                    <form action="#!">
+                    <form action="{{route('product.search')}}" method="get">
                         <div class="form">
                             <div class="select-area">
-                                <select class="select">
+                                <select class="select" name="cat_id">
                                     <option value="">all categories</option>
                                      @foreach($allCategory as $categorys)
                                       <option value="{{$categorys->id}}">{{$categorys->category_name}}</option>
                                      @endforeach  
                                 </select>
                             </div>
-                            <input type="search" placeholder="search for products..." class="inputs">
+                            <input type="search" name="search" placeholder="search for products..." class="inputs">
                         </div>
                         <button type="submit" class="button-style1">search<span class="btn-dot"></span></button>
                     </form>
@@ -102,15 +102,19 @@
                                             @foreach($cartItem as $item)
                                             <li>
                                                 <div class="d-flex position-relative">
-                                                    <img src="{{asset('front/assets/images/home1/product/p1a.jpg')}}" alt="Product Image"/>
+                                                    @if(isset($item->attributeType))
+                                                      <img src="{{asset('vendor/product/attribute/'.$item->image)}}" alt="Product Image"/>
+                                                    @else 
+                                                      <img src="{{asset('vendor/product/'.$item->image)}}" alt="Product Image"/>
+                                                    @endif
                                                     <div class="text">
                                                         <a href="shop-detail-left.html">
                                                             <h5>{{$item->product->product_name}}</h5>
                                                         </a>
                                                         @if(isset($item->attributeType))
-                                                        <p>{{$item->attributeType->attribute_type}}: Red</p>
+                                                        <p>{{$item->attributeType->attribute_type}}: {{$item->attributeValue->attribute}}</p>
                                                         @endif 
-                                                        <p>1 X $78.00</p>
+                                                        <p>{{$item->quantity}} X {{number_format($item->price)}}</p>
                                                         <a href="#!" class="icon">
                                                             <i class="far fa-times-circle"></i>
                                                         </a>
@@ -121,7 +125,7 @@
                                         </ul>
                                         <div class="total d-flex justify-content-between">
                                             <p>total</p>
-                                            <p>$499.00</p>
+                                            <p>{{number_format($subTotal)}}</p>
                                         </div>
                                         <div class="check">
                                             <a href="checkout.html" class="button-style1">checkout <span class="btn-dot"></span></a>
@@ -152,19 +156,17 @@
                         </button>
                         <div class="menu-holder">
                             <ul class="categories">
-                                <li><a href="shop-4-column-sidebar.html"><i class="flaticon-checked"></i>women's</a></li>
-                                <li><a href="shop-3-column-sidebar.html"><i class="flaticon-checked"></i>men's</a></li>
-                                <li><a href="shop-2-column-sidebar.html"><i class="flaticon-checked"></i>kid's</a></li>
-                                <li><a href="shop-4-column-sidebar.html"><i class="flaticon-checked"></i>accessories</a></li>
-                                <li><a href="shop-3-column-sidebar.html"><i class="flaticon-checked"></i>clothing</a></li>
-                                <li><a href="shop-2-column-sidebar.html"><i class="flaticon-checked"></i>shoes</a></li>
-                                <li><a href="shop-4-column-sidebar.html"><i class="flaticon-checked"></i>watches</a></li>
-                                <li><a href="shop-3-column-sidebar.html"><i class="flaticon-checked"></i>jewellery</a></li>
-                                <li><a href="shop-2-column-sidebar.html"><i class="flaticon-checked"></i>beauty</a></li>
-                                <li><a href="shop-4-column-sidebar.html"><i class="flaticon-checked"></i>baby clothing</a></li>
-                                <li><a href="shop-3-column-sidebar.html"><i class="flaticon-checked"></i>ethinic wear</a></li>
-                                <li><a href="shop-2-column-sidebar.html"><i class="flaticon-checked"></i>seasonal wear</a></li>
-                                <li><a href="shop-4-column-sidebar.html"><i class="flaticon-checked"></i>sleep wear</a></li>
+                                @foreach($latestCategory as $categorys)
+                                  <li><a href="{{route('category.product',array('id'=>$categorys->id,'slug'=>$categorys->slug))}}"><i class="flaticon-checked"></i>{{$categorys->category_name}}</a></li>
+                                  <ul>
+                                    @foreach($categorys->subCategory as $child)
+                                      <li class="ml-2"><a href="{{route('category.product',array('id'=>$child->id,'slug'=>$child->slug))}}">{{$child->category_name}}</a></li>
+                                    @endforeach
+                                </ul>
+                                @endforeach 
+                            </ul> 
+                            <ul class="categories">
+                                <li><a href="{{route('all.category')}}"><i class="flaticon-checked"></i>View All Category</a></li>
                             </ul>
                         </div>
                     </div>
@@ -182,69 +184,23 @@
                                         <li><a href="{{route('vendor.login')}}">Vendor Login</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#!">shop</a>
+                                <li><a href="#!">categories</a>
                                     <div class="mega-submenu">
                                         <div class="submenu-inside">
                                             <div class="container">
                                                 <div class="row">
                                                     <div class="col-lg-9">
                                                         <div class="row">
-                                                            <div class="col-lg-3">
-                                                                <h4>collections</h4>
-                                                                <ul class="big-item">
-                                                                 
-                                                                    <li>
-                                                                        <a href="shop-2-column-sidebar.html">
-                                                                            Boishakhi collections
-                                                                            <span>Available in shop from April 2021</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="shop-4-column-sidebar.html">
-                                                                            Puja collections
-                                                                            <span>Available in shop from June 2021</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                <h4>with sidebar</h4>
-                                                                <ul>
-                                                                    <li><a href="shop-2-column-sidebar.html">shop grid 2 columns</a></li>
-                                                                    <li><a href="shop-3-column-sidebar.html">shop grid 3 columns</a></li>
-                                                                    <li><a href="shop-4-column-sidebar.html">shop grid 4 columns</a></li>
-                                                                    
-                                                                    <li><a href="shop-list-left-sidebar.html">shop list left</a></li>
-                                                                    <li><a href="shop-list-right-sidebar.html">shop list right</a></li>
-                                                                    <li><a href="shop-right-sidebar.html">shop classic</a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                <h4>without sidebar</h4>
-                                                                <ul>
-                                                                    <li><a href="shop-2-column.html">shop grid 2 columns</a></li>
-                                                                    <li><a href="shop-3-column.html">shop grid 3 columns</a></li>
-                                                                    <li><a href="shop-4-column.html">shop grid 4 columns</a></li>
-                                                                    <li><a href="shop-5-column.html">shop grid 5 columns</a></li>
-                                                                    <li><a href="shop-full-width.html">shop full width</a></li>
-                                                                    <li><a href="shop-list-left.html">shop list left</a></li>
-                                                                    <li><a href="shop-list-right.html">shop list right</a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                <h4>shop pages</h4>
-                                                                <ul>
-                                                                    <li><a href="shop-detail-left.html">shop details left</a></li>
-                                                                    <li><a href="shop-detail-right.html">shop details right</a></li>
-                                                                    <li><a href="shop-detail-tab-left.html">shop details tab left</a></li>
-                                                                    <li><a href="shop-detail-tab-right.html">shop details tab right</a></li>
-                                                                    <li><a href="cart.html">cart</a></li>
-                                                                    <li><a href="checkout.html">checkout</a></li>
-                                                                    <li><a href="compare.html">compare</a></li>
-                                                                    <li><a href="category.html">category</a></li>
-                                                                    <li><a href="wishlist.html">wishlist</a></li>
-                                                                </ul>
-                                                            </div>
+                                                            @foreach($parentCategory as $parent)
+                                                                <div class="col-lg-3">
+                                                                    <h4>{{$parent->category_name}}</h4>
+                                                                    <ul>
+                                                                        @foreach($parent->subCategory as $child)
+                                                                          <li><a href="{{route('category.product',array('id'=>$child->id,'slug'=>$child->slug))}}">{{$child->category_name}}</a></li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                             @endforeach    
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3">
@@ -273,10 +229,8 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li>
-                                    <a href="#!">blog</a>
-                                </li>
-                                <li><a href="contact.html">contact</a></li>
+                                <li><a href="!#">blog</a></li>
+                                <li><a href="{{route('contact.page')}}">contact</a></li>
                             </ul>
                         </div>
                         <div class="right-part d-flex align-items-center">
@@ -295,73 +249,35 @@
                                     <a href="{{route('home.page')}}">home</a>
                                 </li>
                                 <li><a href="about.html">about</a></li>
-                                <li>
-                                    <a href="#!">account</a>
-                                    <ul>
-                                        <li>
-                                            <ul>
-                                                <li><a href="login.html">login</a></li>
-                                                <li><a href="register.html">register</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="faq.html">FAQ</a></li>
+                             
+                                <li><a href="#!">Account</a>
+                                    <ul class="submenu-list">
+                                        <li><a href="{{route('customer.login')}}">Customer Login</a></li>
+                                        <li><a href="{{route('vendor.login')}}">Vendor Login</a></li>
                                     </ul>
                                 </li>
+
                                 <li>
-                                    <a href="#!">shop</a>
+                                    <a href="#!">categorys</a>
                                     <ul>
+                                        @foreach($parentCategory as $parent)
                                         <li>
-                                            <a href="#!">collections</a>
+                                            <a href="#!">{{$parent->category_name}}</a>
                                             <ul>
-                                                <li><a href="shop-4-column-sidebar.html">spring summer collections</a></li>
-                                                <li><a href="shop-3-column-sidebar.html">fall winter collections</a></li>
-                                                <li><a href="shop-2-column-sidebar.html">Boishakhi collections</a></li>
-                                                <li><a href="shop-4-column-sidebar.html">puja collections</a></li>
+                                                @foreach($parent->subCategory as $child)
+                                                <li><a href="{{route('category.product',array('id'=>$child->id,'slug'=>$child->slug))}}">{{$child->category_name}}</a></li>
+                                                @endforeach
                                             </ul>
                                         </li>
-                                        <li>
-                                            <a href="#!">shop with sidebar</a>
-                                            <ul>
-                                                <li><a href="shop-2-column-sidebar.html">grid 2 columns</a></li>
-                                                <li><a href="shop-3-column-sidebar.html">grid 3 columns</a></li>
-                                                <li><a href="shop-4-column-sidebar.html">grid 4 columns</a></li>
-                                                <li><a href="shop-list-left-sidebar.html">shop list left</a></li>
-                                                <li><a href="shop-list-right-sidebar.html">shop list right</a></li>
-                                                <li><a href="shop-right-sidebar.html">shop classic</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#!">shop without sidebar</a>
-                                            <ul>
-                                                <li><a href="shop-2-column.html">grid 2 columns</a></li>
-                                                <li><a href="shop-3-column.html">grid 3 columns</a></li>
-                                                <li><a href="shop-4-column.html">grid 4 columns</a></li>
-                                                <li><a href="shop-5-column.html">grid 5 columns</a></li>
-                                                <li><a href="shop-full-width.html">shop full width</a></li>
-                                                <li><a href="shop-list-left.html">shop list left</a></li>
-                                                <li><a href="shop-list-right.html">shop list right</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#!">shop pages</a>
-                                            <ul>
-                                                <li><a href="shop-detail-left.html">shop details left</a></li>
-                                                <li><a href="shop-detail-right.html">shop details right</a></li>
-                                                <li><a href="shop-detail-tab-left.html">shop details tab left</a></li>
-                                                <li><a href="shop-detail-tab-right.html">shop details tab right</a></li>
-                                                <li><a href="cart.html">cart</a></li>
-                                                <li><a href="checkout.html">checkout</a></li>
-                                                <li><a href="compare.html">compare</a></li>
-                                                <li><a href="category.html">category</a></li>
-                                                <li><a href="wishlist.html">wishlist</a></li>
-                                            </ul>
-                                        </li>
+                                        @endforeach  
                                     </ul>
                                 </li>
+
                                 <li>
-                                    <a href="project.html">blog</a>
+                                    <a href="!#">blog</a>
                                 </li>
-                                <li><a href="contact.html">contact</a></li>
+
+                                <li><a href="{{route('contact.page')}}">contact</a></li>
                             </ul>
                         </div>
                     </nav>

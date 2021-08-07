@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('slug',100);
             $table->string('image',255)->nullable();
             $table->unsignedBigInteger('created_by');
+            $table->tinyInteger('category_type')->default(1)->comment('1 for category and 2 for blog');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

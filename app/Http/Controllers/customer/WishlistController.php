@@ -5,6 +5,7 @@ namespace App\Http\Controllers\customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\customer\ProductWishlist;
+use App\Traits\WishlistTrait;
 
 class WishlistController extends Controller
 {
@@ -12,6 +13,9 @@ class WishlistController extends Controller
     {
         $this->middleware('auth:web');
     }
+
+    //import trait 
+    use WishlistTrait;
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +23,7 @@ class WishlistController extends Controller
      */
     public function index()
     {
-       $list=ProductWishlist::where('user_id',auth()->user()->id)->with('product')->get();
+       $list=$this->wishListItem();
        return view('customer.wishlist.wishlist',compact('list'));
     }
 
@@ -41,7 +45,31 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $count=ProductWishlist::where(['user_id'=>auth()->user()->id,'product_id'=>$id])->count();
+        if($count>0){
+            ProductWishlist::where(['user_id'=>auth()->user()->id,'product_id'=>$id])->delete();
+        }
+        $store = new ProductWishlist;
+        $store->user_id=auth()->user()->id;
+        $store->product_id=$id;
+        $store->status=1;
+        $store->save();
+        return back()->with('success','Product has been added to wishlist');
+
+    }
+
+    //add to wishlist
+    public function addWishlist($id){
+        $count=ProductWishlist::where(['user_id'=>auth()->user()->id,'product_id'=>$id])->count();
+        if($count>0){
+            ProductWishlist::where(['user_id'=>auth()->user()->id,'product_id'=>$id])->delete();
+        }
+        $store = new ProductWishlist;
+        $store->user_id=auth()->user()->id;
+        $store->product_id=$id;
+        $store->status=1;
+        $store->save();
+        return back()->with('success','Product has been added to wishlist');
     }
 
     /**
@@ -86,6 +114,8 @@ class WishlistController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete=ProductWishlist::findOrFail($id);
+        $delete->delete();
+        return back()->with('success','Item has been delete from wishlist');
     }
 }

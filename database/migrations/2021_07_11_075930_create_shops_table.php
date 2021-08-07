@@ -17,6 +17,7 @@ class CreateShopsTable extends Migration
             $table->id();
             $table->string('shop_name',150);
             $table->string('logo',255)->nullable();
+            $table->string('shop_banner',255)->nullable();
             $table->string('shop_slug',150);
             $table->text('shop_address')->nullable();
             $table->unsignedBigInteger('vendor_id');

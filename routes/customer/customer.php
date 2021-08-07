@@ -23,8 +23,10 @@ use App\Http\Controllers\customer\WishlistController;
 
 //wishlist route start
   Route::resource('cart',CartController::class);
+  Route::get('cart/item/delete/{id}',[CartController::class,'delete'])->name('item.delete');
 //wishlist route end
 
 //wishlist route start
   Route::resource('wishlist',WishlistController::class);
+  Route::get('add/wishlist/{id}',[WishlistController::class,'addWishlist'])->name('add.wishlist');
 //wishlist route end
