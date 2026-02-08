@@ -106,6 +106,7 @@ database/
 ### Clone the Repository
 ```bash
 git clone https://github.com/your-username/your-repository-name.git
+```bash
 
 ### Install PHP Dependencies
 ```bash
