@@ -107,15 +107,6 @@ database/
 ### Clone the Repository
 ```bash
 git clone https://github.com/your-username/your-repository-name.git
----
-
----
-## ⚙️ Installation & Setup
-
-### Clone the Repository
-```bash
-git clone https://github.com/your-username/your-repository-name.git
----
 
 
 
