@@ -103,10 +103,31 @@ database/
 
 ## ⚙️ Installation & Setup
 
-### 1️⃣ Clone the Repository
+### Clone the Repository
 ```bash
 git clone https://github.com/your-username/your-repository-name.git
 
-2️⃣ Install PHP Dependencies
+### Install PHP Dependencies
+```bash
 composer install
+
+### Environment Setup
+```bash
+cp .env.example .env
+php artisan key:generate
+DB_DATABASE=your_database_name
+DB_USERNAME=your_database_user
+DB_PASSWORD=your_database_password
+
+### Run Migrations & Seeders
+```bash
+php artisan migrate --seed
+
+### Run the Application
+```bash
+php artisan serve
+
+
+
+
 
