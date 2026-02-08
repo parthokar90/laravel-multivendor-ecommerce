@@ -108,7 +108,9 @@ database/
 git clone 
 cd your-repository-name
 
+---
 ### 2️⃣ Install Dependencies
+```bash
 composer install
 npm install
 npm run dev
