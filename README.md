@@ -73,5 +73,52 @@ This project follows clean architecture principles and is suitable for real-worl
 
 ---
 
-## 📁 Project Structure
+## Project Structure
+
+app/
+├── Models
+├── Http/
+│ ├── Controllers/
+│ │ ├── Admin/
+│ │ ├── Vendor/
+│ │ └── Frontend/
+│ ├── Middleware
+│ └── Requests
+resources/
+├── views/
+│ ├── admin/
+│ ├── vendor/
+│ └── frontend/
+├── css/
+├── js/
+routes/
+├── web.php
+├── admin.php
+├── vendor.php
+database/
+├── migrations
+└── seeders
+
+## Install Dependencies
+
+composer install
+npm install
+npm run dev
+
+## Environment Configuration
+
+cp .env.example .env
+php artisan key:generate
+
+## Run Migrations & Seeders
+
+php artisan migrate --seed
+
+## Run the Application
+
+php artisan serve
+
+
+
+
 
