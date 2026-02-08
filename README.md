@@ -75,6 +75,29 @@ This project follows clean architecture principles and is suitable for real-worl
 
 ## 📂 Project Structure
 
+app/
+├── Models
+├── Http/
+│ ├── Controllers/
+│ │ ├── Admin/
+│ │ ├── Vendor/
+│ │ └── Frontend/
+│ ├── Middleware
+│ └── Requests
+resources/
+├── views/
+│ ├── admin/
+│ ├── vendor/
+│ └── frontend/
+├── css/
+├── js/
+routes/
+├── web.php
+├── admin.php
+├── vendor.php
+database/
+├── migrations
+└── seeders
 
 ---
 
@@ -82,9 +105,10 @@ This project follows clean architecture principles and is suitable for real-worl
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/your-username/your-repository-name.git
+git clone 
 cd your-repository-name
 
+### 2️⃣ Install Dependencies
 composer install
 npm install
 npm run dev
