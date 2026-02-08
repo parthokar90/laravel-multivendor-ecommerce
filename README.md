@@ -105,12 +105,8 @@ database/
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone 
-cd your-repository-name
+git clone https://github.com/your-username/your-repository-name.git
 
----
-### 2️⃣ Install Dependencies
-```bash
+2️⃣ Install PHP Dependencies
 composer install
-npm install
-npm run dev
+
