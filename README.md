@@ -108,10 +108,8 @@ database/
 Clone the project from GitHub to your local machine.
 
 ```bash
-git clone https://github.com/your-username/your-repository-name.git
+git@github.com:parthokar90/laravel-multivendor-ecommerce.git
 ```
-
----
 
 ## 2️⃣ Navigate to Project Folder
 
@@ -119,6 +117,17 @@ Move into the project directory.
 
 ```bash
 cd your-repository-name
+```
+
+3️⃣ Install PHP Dependencies
+```bash
+composer install
+```
+
+4️⃣ Install Frontend Dependencies
+```bash
+npm install
+npm run dev
 ```
 
 
