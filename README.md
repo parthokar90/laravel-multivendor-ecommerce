@@ -1,4 +1,4 @@
-# 🛒 Laravel Multi-Vendor E-commerce Platform
+# Laravel Multi-Vendor E-commerce Platform
 
 A complete **Multi-Vendor E-commerce Platform** built with **Laravel**, where multiple vendors can sell their products independently, customers can shop from different vendors, and admins can manage the entire system from a centralized dashboard.
 
@@ -6,16 +6,16 @@ This project follows clean architecture principles and is suitable for real-worl
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-### 🔐 Authentication & Authorization
+### Authentication & Authorization
 - Admin, Vendor, and Customer authentication
 - Role-based access control (RBAC)
 - Secure login & registration system
 
 ---
 
-### 🏪 Vendor Management
+### Vendor Management
 - Vendor registration system
 - Admin approval / rejection for vendors
 - Vendor dashboard
@@ -24,7 +24,7 @@ This project follows clean architecture principles and is suitable for real-worl
 
 ---
 
-### 📦 Product Management
+### Product Management
 - Product CRUD (Create, Read, Update, Delete)
 - Category & subcategory support
 - Product images upload
@@ -33,7 +33,7 @@ This project follows clean architecture principles and is suitable for real-worl
 
 ---
 
-### 🛍️ Customer Features
+### Customer Features
 - Browse products from multiple vendors
 - Search & filter products
 - Add to cart
@@ -43,7 +43,7 @@ This project follows clean architecture principles and is suitable for real-worl
 
 ---
 
-### 🧾 Order Management
+### Order Management
 - Cart system
 - Order placement
 - Order status tracking
@@ -52,7 +52,7 @@ This project follows clean architecture principles and is suitable for real-worl
 
 ---
 
-### 🛠️ Admin Panel
+### Admin Panel
 - Dashboard with system overview
 - Manage vendors, customers, and products
 - Category management
@@ -61,7 +61,7 @@ This project follows clean architecture principles and is suitable for real-worl
 
 ---
 
-## 🧑‍💻 Tech Stack
+## Tech Stack
 
 - **Backend:** Laravel
 - **Frontend:** Blade Template Engine
@@ -73,7 +73,7 @@ This project follows clean architecture principles and is suitable for real-worl
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 app/
 ├── Models
@@ -128,6 +128,22 @@ composer install
 ```bash
 npm install
 npm run dev
+```
+
+5️⃣ Configure Environment File
+
+```bash
+cp .env.example .env
+```
+
+6️⃣ Run Database Migration & Seeders
+```bash
+php artisan migrate --seed
+```
+
+7️⃣ Start the Development Server
+```bash
+php artisan serve
 ```
 
 
