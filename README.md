@@ -112,6 +112,7 @@ This is the description for the first step.
 ```bash
 echo "This is the first command"
 
+---
 
 ## Content 1
 This is the description for the first step.
@@ -120,7 +121,7 @@ This is the description for the first step.
 ```bash
 echo "This is the first command"
 
-
+---
 
 
 
