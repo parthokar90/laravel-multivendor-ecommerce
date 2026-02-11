@@ -101,19 +101,17 @@ database/
 
 ---
 
----
-## ⚙️ Installation & Setup
-
-### Clone the Repository
-```bash
-git clone https://github.com/your-username/your-repository-name.git
+# Example README
 
 ---
-## ⚙️ Installation & Setup
 
-### Clone the Repository
+## Content 1
+This is the description for the first step.
+
+### Command
 ```bash
-git clone https://github.com/your-username/your-repository-name.git
+echo "This is the first command"
+
 
 
 
