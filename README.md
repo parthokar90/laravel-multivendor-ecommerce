@@ -99,29 +99,16 @@ database/
 ├── migrations
 └── seeders
 
----
-
-# Example README
+# ⚙️ Installation & Setup
 
 ---
 
-## Content 1
-This is the description for the first step.
+## 1️⃣ Clone the Repository
 
-### Command
+Clone the project from GitHub to your local machine.
+
 ```bash
-echo "This is the first command"
-
----
-
-## Content 1
-This is the description for the first step.
-
-### Command
-```bash
-echo "This is the first command"
-
----
+git clone https://github.com/your-username/your-repository-name.git
 
 
 
