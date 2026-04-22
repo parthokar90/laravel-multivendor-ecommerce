@@ -1,3 +1,5 @@
+![Tests](https://github.com/parthokar90/laravel-multivendor-ecommerce
+/actions/workflows/ci.yml/badge.svg)
 # Laravel Multi-Vendor E-commerce Platform
 
 A complete **Multi-Vendor E-commerce Platform** built with **Laravel**, where multiple vendors can sell their products independently, customers can shop from different vendors, and admins can manage the entire system from a centralized dashboard.
