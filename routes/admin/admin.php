@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\admin\AttributeController;
 use App\Http\Controllers\admin\VendorController;
 use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\admin\CustomerController;
 
 
 //login route start
@@ -44,3 +45,5 @@ use App\Http\Controllers\admin\ProductController;
   Route::resource('products',ProductController::class);
   Route::get('att/value/{id}',[ProductController::class,'attributeValue'])->name('att.values');
 //product route end
+
+ Route::resource('customers', CustomerController::class);

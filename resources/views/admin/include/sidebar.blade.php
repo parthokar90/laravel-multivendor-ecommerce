@@ -1,4 +1,4 @@
-@php $url=Route::currentRouteName();  @endphp
+@php $url=Route::currentRouteName(); @endphp
 <div class="left main-sidebar">
     <div class="sidebar-inner leftscroll">
         <div id="sidebar-menu">
@@ -18,10 +18,10 @@
                     </a>
                     <ul class="list-unstyled">
                         <li>
-                            <a href="tables-basic.html">List</a>
+                            <a href="{{route('customers.index')}}">List</a>
                         </li>
                         <li>
-                            <a href="tables-datatable.html">Add New</a>
+                            <a href="{{route('customers.create')}}">Add New</a>
                         </li>
                     </ul>
                 </li>
@@ -41,7 +41,7 @@
                         </li>
                     </ul>
                 </li>
-                
+
                 <li class="submenu">
                     <a id="tables" class="@if($url==='products.index' || $url==='products.create' || $url==='products.edit') active @endif" href="#">
                         <i class="fab fa-product-hunt"></i>
@@ -301,16 +301,16 @@
                 </li>
 
                 <li class="submenu">
-                    <li class="submenu">
-                        <a href="{{route('logout')}}" onclick="event.preventDefault();
+                <li class="submenu">
+                    <a href="{{route('logout')}}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
-                            <i class="fas fa-power-off"></i>
-                            <span> Logout </span>
-                        </a>
-                    </li>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+                        <i class="fas fa-power-off"></i>
+                        <span> Logout </span>
+                    </a>
+                </li>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
                 </li>
 
 
