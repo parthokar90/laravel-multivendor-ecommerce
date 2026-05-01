@@ -67,6 +67,16 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<style>
+    .dataTables_filter {
+        display: block !important;
+    }
+    .dataTables_filter input {
+        margin-left: 0.5em;
+        display: inline-block;
+        width: auto;
+    }
+</style>
 @endpush
 
 @push('scripts')
@@ -85,7 +95,9 @@ $(function () {
         "autoWidth": false,
         "responsive": true,
         "order": [[0, 'desc']],
+        "dom": '<"top"lf>rt<"bottom"ip><"clear">',
         "language": {
+            "search": "Search:",
             "paginate": {
                 "next": '&gt;',
                 "previous": '&lt;'
