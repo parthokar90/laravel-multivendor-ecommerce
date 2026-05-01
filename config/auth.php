@@ -44,6 +44,8 @@ return [
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
+            'redirectTo' => 'admin.dashboard',
+            'redirectBack' => 'admin.login',
         ],
 
         'vendor' => [
@@ -82,7 +84,7 @@ return [
         ],
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\admin\Admin::class,
+            'model' => App\Models\Admin::class,
         ],
         'vendors' => [
             'driver' => 'eloquent',
