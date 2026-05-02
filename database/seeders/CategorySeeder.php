@@ -59,7 +59,7 @@ class CategorySeeder extends Seeder
         for ($i = 1; $i <= 50; $i++) {
 
             $baseName = $categories[array_rand($categories)];
-            $name = $baseName . ' ' . $i;
+            $name = $baseName;
 
             $keyword = $imageMap[$baseName] ?? 'shopping store';
 
