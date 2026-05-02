@@ -119,7 +119,6 @@
                                       view more
                                   </a>
                               </div>
-
                           </div>
                       </div>
 
