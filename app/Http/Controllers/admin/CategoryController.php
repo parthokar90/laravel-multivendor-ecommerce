@@ -34,7 +34,7 @@ class CategoryController extends Controller
 
                  //for image
                  ->addColumn('image', function($row){
-                    $src=asset('admin/category/'.$row->image);
+                    $src=$row->image;
                     return '<img src="'.$src.'" border="0" width="40" class="img-rounded" align="center" />';
                   })
 
