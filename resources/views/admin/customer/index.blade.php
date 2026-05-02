@@ -21,6 +21,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
@@ -31,9 +32,10 @@
                         </thead>
 
                         <tbody>
-                            @foreach($customers as $customer)
+                            @foreach($customers as $key=> $customer)
                             <tr>
-                                <td>{{ $customer->id }}</td>
+                                <td>{{ ++$key }}</td>
+                                <td><img src="{{$customer->image}}"></td>
                                 <td>{{ $customer->first_name }} {{ $customer->last_name }}</td>
                                 <td>{{ $customer->email }}</td>
                                 <td>{{ $customer->mobile }}</td>
