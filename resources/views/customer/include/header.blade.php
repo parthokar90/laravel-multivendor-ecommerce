@@ -1,70 +1,56 @@
- <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
-        <header class="topbar" data-navbarbg="skin5">
-            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-                <div class="navbar-header" data-logobg="skin6">
-                    <!-- ============================================================== -->
-                    <!-- Logo -->
-                    <!-- ============================================================== -->
-                    <a class="navbar-brand" href="{{route('customer.dashboard')}}">
-                        <!-- Logo icon -->
-                        <b class="logo-icon">
-                            <!-- Dark Logo icon -->
-                            <img src="{{asset('customer/plugins/images/logo-icon.png')}}" alt="homepage" />
-                        </b>
-                        <!--End Logo icon -->
-                        <!-- Logo text -->
-                        <span class="logo-text">
-                            <!-- dark Logo text -->
-                            <img src="{{asset('customer/plugins/images/logo-text.png')}}" alt="homepage" />
+<header class="topbar" data-navbarbg="skin5">
+    <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+
+        <!-- LEFT SIDE (empty after removing logo) -->
+        <div class="navbar-header" style="width:0;"></div>
+
+        <div class="navbar-collapse collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav ms-auto d-flex align-items-center">
+
+                <!-- SEARCH -->
+                <li>
+                    <form class="app-search d-none d-md-block me-3">
+                        <input type="text" placeholder="Search..." class="form-control">
+                    </form>
+                </li>
+
+                <!-- USER -->
+                <li class="nav-item dropdown">
+
+                    <a class="profile-pic d-flex align-items-center text-white" href="#" data-bs-toggle="dropdown">
+                        <i class="fa fa-user-circle fa-2x me-2"></i>
+                        <span class="font-medium" style="color:white;">
+                            {{ auth('web')->user()->first_name ?? '' }} {{ auth('web')->user()->last_name ?? '' }}
                         </span>
                     </a>
-                    <!-- ============================================================== -->
-                    <!-- End Logo -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
-                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                </div>
-                <!-- ============================================================== -->
-                <!-- End Logo -->
-                <!-- ============================================================== -->
-                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                   
-                    <!-- ============================================================== -->
-                    <!-- Right side toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav ms-auto d-flex align-items-center">
 
-                        <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
-                        <li class=" in">
-                            <form role="search" class="app-search d-none d-md-block me-3">
-                                <input type="text" placeholder="Search..." class="form-control mt-0">
-                                <a href="" class="active">
-                                    <i class="fa fa-search"></i>
-                                </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <i class="fa fa-user me-2"></i> Profile
+                            </a>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <!-- LOGOUT -->
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="dropdown-item text-danger">
+                                    <i class="fa fa-sign-out me-2"></i> Logout
+                                </button>
                             </form>
                         </li>
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                        <li>
-                            <a class="profile-pic" href="#">
-                                <img src="{{asset('customer/plugins/images/users/varun.jpg')}}" alt="user-img" width="36"
-                                    class="img-circle"><span class="text-white font-medium">{{auth()->user()->first_name}} {{auth()->user()->last_name}}</span></a>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
+
                     </ul>
-                </div>
-            </nav>
-        </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+</header>

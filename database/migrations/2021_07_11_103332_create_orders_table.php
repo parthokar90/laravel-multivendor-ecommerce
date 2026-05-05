@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->text('ship_location');
             $table->text('bill_address');
             $table->text('bill_location');
-            $table->unsignedBigInteger('status_id');
+            $table->string('status')->default('pending');
             $table->date('order_date');
             $table->timestamps();
         });

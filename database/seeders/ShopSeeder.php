@@ -44,10 +44,10 @@ class ShopSeeder extends Seeder
             'https://images.unsplash.com/photo-1483985988355-763728e1935b',
         ];
 
-        for ($i = 1; $i <= 10; $i++) {
+        // shuffle to avoid same order
+        shuffle($shopNames);
 
-            $baseName = $shopNames[array_rand($shopNames)];
-            $name = $baseName;
+        foreach ($shopNames as $name) {
 
             Shop::create([
                 'shop_name' => $name,
@@ -62,7 +62,7 @@ class ShopSeeder extends Seeder
 
                 'created_by' => 1,
 
-                'status' => rand(0, 1),
+                'status' => 1,
             ]);
         }
     }

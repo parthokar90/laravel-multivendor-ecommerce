@@ -54,11 +54,6 @@
       @include('front.include.header')
       <!-- end header area -->
       
-    <!-- start preloader area -->
-    <div class="preloader">
-        <img src="{{asset('front/assets/images/loader.gif')}}" alt="Preloader">
-    </div>
-    <!-- end preloader area -->
 
     <!-- start top to button -->
     <div class="top-to">

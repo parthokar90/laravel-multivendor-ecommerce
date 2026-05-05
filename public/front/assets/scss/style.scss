@@ -125,7 +125,7 @@ Developer: Najmul Huda Eimon
 =============================================================*/
 // 1.1: variables
 
-$primary-color: #ec7a5c;
+$primary-color: #151a33;
 $deep-blue: #151a33;
 $green: #5fa702;
 $red: #e72f07;
@@ -1415,7 +1415,7 @@ h6{
 08: menubar CSS
 =============================================================*/
 .menubar{
-    background: $primary-color;
+    background: #151a33 !important;
     .mbl-offcanvas{
         width: 300px;
         background: #fff;

@@ -11,10 +11,28 @@ class VendorSeeder extends Seeder
 {
     public function run(): void
     {
+
+        Vendor::create([
+            'first_name' => 'Demo',
+            'last_name'  => 'Vendor',
+            'email'      => 'test@vendor.com',
+            'password'   => Hash::make('12345678'),
+            'mobile'     => '01000000000',
+            'image'      => 'https://i.pravatar.cc/150?img=10',
+            'address'    => 'Dhaka, Bangladesh',
+            'country_id' => 1,
+            'role'       => 2,
+            'city'       => 'Dhaka',
+            'zip_code'   => '1200',
+            'gender'     => 1,
+            'created_by' => 1,
+            'status'     => 1,
+        ]);
+
         $firstNames = ['John', 'David', 'Alex', 'Michael', 'Sarah', 'Emma', 'Robert', 'James', 'William', 'Sophia'];
         $lastNames  = ['Smith', 'Johnson', 'Brown', 'Taylor', 'Anderson', 'Thomas', 'Jackson', 'White', 'Harris', 'Martin'];
 
-        for ($i = 1; $i <= 50; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
 
             $first = $firstNames[array_rand($firstNames)];
             $last  = $lastNames[array_rand($lastNames)];

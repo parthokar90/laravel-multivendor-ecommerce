@@ -1,4 +1,5 @@
 <header>
+
     <!-- start top-bar area -->
     <section class="home1 top-bar">
         <div class="container">
@@ -8,22 +9,6 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="right-part d-flex justify-content-end">
-                        <div class="select-area">
-                            <select class="select">
-                                <option value="0">USD</option>
-                                <option value="1">CAD</option>
-                                <option value="2">Rupee</option>
-                                <option value="3">TK</option>
-                            </select>
-                        </div>
-                        <div class="select-area">
-                            <select class="select">
-                                <option value="0">English</option>
-                                <option value="1">Spanish</option>
-                                <option value="2">Japanese</option>
-                                <option value="3">British</option>
-                            </select>
-                        </div>
                         <div class="social-area">
                             <ul class="d-flex">
                                 <li><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
@@ -45,8 +30,10 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-2 col-sm-6 col-6 order-1 order-md-1">
                     <div class="logo">
-                        <a href="{{route('home.page')}}">
-                            <img src="{{asset('front/assets/images/home1/logo.png')}}" alt="Logo"/>
+                        <a href="{{route('home.page')}}" style="text-decoration:none;">
+                            <h3 style="margin:0; font-weight:700;">
+                                Multivendor
+                            </h3>
                         </a>
                     </div>
                 </div>
@@ -56,9 +43,9 @@
                             <div class="select-area">
                                 <select class="select" name="cat_id">
                                     <option value="">all categories</option>
-                                     @foreach($allCategory as $categorys)
-                                      <option value="{{$categorys->id}}">{{$categorys->category_name}}</option>
-                                     @endforeach  
+                                    @foreach($allCategory as $categorys)
+                                    <option value="{{$categorys->id}}">{{$categorys->category_name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <input type="search" name="search" placeholder="search for products..." class="inputs">
@@ -69,13 +56,13 @@
                 <div class="col-lg-2 col-md-3 col-sm-6 col-6 order-2 order-md-3">
                     <div class="notification">
                         <ul class="d-flex justify-content-end">
-                                @if(Auth::guard('vendor')->check())
-                                    @php $url=route('vendor.dashboard'); @endphp
-                                 @elseif(Auth::guard('web')->check())
-                                    @php $url=route('customer.dashboard'); @endphp
-                                  @else 
-                                    @php $url=route('customer.login'); @endphp
-                                @endif
+                            @if(Auth::guard('vendor')->check())
+                            @php $url=route('vendor.dashboard'); @endphp
+                            @elseif(Auth::guard('web')->check())
+                            @php $url=route('customer.dashboard'); @endphp
+                            @else
+                            @php $url=route('customer.login'); @endphp
+                            @endif
                             <li>
                                 <a href="{{$url}}">
                                     <i class="flaticon-user-1"></i>
@@ -103,9 +90,9 @@
                                             <li>
                                                 <div class="d-flex position-relative">
                                                     @if(isset($item->attributeType))
-                                                      <img src="{{asset('vendor/product/attribute/'.$item->image)}}" alt="Product Image"/>
-                                                    @else 
-                                                      <img src="{{asset('vendor/product/'.$item->image)}}" alt="Product Image"/>
+                                                    <img src="{{asset('vendor/product/attribute/'.$item->image)}}" alt="Product Image" />
+                                                    @else
+                                                    <img src="{{asset('vendor/product/'.$item->image)}}" alt="Product Image" />
                                                     @endif
                                                     <div class="text">
                                                         <a href="shop-detail-left.html">
@@ -113,7 +100,7 @@
                                                         </a>
                                                         @if(isset($item->attributeType))
                                                         <p>{{$item->attributeType->attribute_type}}: {{$item->attributeValue->attribute}}</p>
-                                                        @endif 
+                                                        @endif
                                                         <p>{{$item->quantity}} X {{number_format($item->price)}}</p>
                                                         <a href="#!" class="icon">
                                                             <i class="far fa-times-circle"></i>
@@ -121,14 +108,14 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                            @endforeach 
+                                            @endforeach
                                         </ul>
                                         <div class="total d-flex justify-content-between">
                                             <p>total</p>
                                             <p>{{number_format($subTotal)}}</p>
                                         </div>
                                         <div class="check">
-                                            <a href="checkout.html" class="button-style1">checkout <span class="btn-dot"></span></a>
+                                            <a href="#" class="button-style1">checkout <span class="btn-dot"></span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -157,14 +144,14 @@
                         <div class="menu-holder">
                             <ul class="categories">
                                 @foreach($latestCategory as $categorys)
-                                  <li><a href="{{route('category.product',array('id'=>$categorys->id,'slug'=>$categorys->slug))}}"><i class="flaticon-checked"></i>{{$categorys->category_name}}</a></li>
-                                  <ul>
+                                <li><a href="{{route('category.product',array('id'=>$categorys->id,'slug'=>$categorys->slug))}}"><i class="flaticon-checked"></i>{{$categorys->category_name}}</a></li>
+                                <ul>
                                     @foreach($categorys->subCategory as $child)
-                                      <li class="ml-2"><a href="{{route('category.product',array('id'=>$child->id,'slug'=>$child->slug))}}">{{$child->category_name}}</a></li>
+                                    <li class="ml-2"><a href="{{route('category.product',array('id'=>$child->id,'slug'=>$child->slug))}}">{{$child->category_name}}</a></li>
                                     @endforeach
                                 </ul>
-                                @endforeach 
-                            </ul> 
+                                @endforeach
+                            </ul>
                             <ul class="categories">
                                 <li><a href="{{route('all.category')}}"><i class="flaticon-checked"></i>View All Category</a></li>
                             </ul>
@@ -180,6 +167,7 @@
                                 </li>
                                 <li><a href="#!">Account</a>
                                     <ul class="submenu-list">
+                                        <li><a href="{{route('admin.login')}}">Admin Login</a></li>
                                         <li><a href="{{route('customer.login')}}">Customer Login</a></li>
                                         <li><a href="{{route('vendor.login')}}">Vendor Login</a></li>
                                     </ul>
@@ -192,33 +180,33 @@
                                                     <div class="col-lg-9">
                                                         <div class="row">
                                                             @foreach($parentCategory as $parent)
-                                                                <div class="col-lg-3">
-                                                                    <h4>{{$parent->category_name}}</h4>
-                                                                    <ul>
-                                                                        @foreach($parent->subCategory as $child)
-                                                                          <li><a href="{{route('category.product',array('id'=>$child->id,'slug'=>$child->slug))}}">{{$child->category_name}}</a></li>
-                                                                        @endforeach
-                                                                    </ul>
-                                                                </div>
-                                                             @endforeach    
+                                                            <div class="col-lg-3">
+                                                                <h4>{{$parent->category_name}}</h4>
+                                                                <ul>
+                                                                    @foreach($parent->subCategory as $child)
+                                                                    <li><a href="{{route('category.product',array('id'=>$child->id,'slug'=>$child->slug))}}">{{$child->category_name}}</a></li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+                                                            @endforeach
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3">
                                                         <div class="ad-part">
                                                             <div class="ad-slider">
                                                                 <div class="item">
-                                                                    <a href="shop-detail-left.html">
-                                                                        <img src="{{asset('front/assets/images/home1/advertise.png')}}" alt="Advertise"/>
+                                                                    <a href="#">
+                                                                        <img src="{{asset('front/assets/images/home1/advertise.png')}}" alt="Advertise" />
                                                                     </a>
                                                                 </div>
                                                                 <div class="item">
-                                                                    <a href="shop-detail-left.html">
-                                                                        <img src="{{asset('front/assets/images/home1/advertise2.png')}}" alt="Advertise"/>
+                                                                    <a href="#">
+                                                                        <img src="{{asset('front/assets/images/home1/advertise2.png')}}" alt="Advertise" />
                                                                     </a>
                                                                 </div>
                                                                 <div class="item">
-                                                                    <a href="shop-detail-left.html">
-                                                                        <img src="{{asset('front/assets/images/home1/advertise3.png')}}" alt="Advertise"/>
+                                                                    <a href="#">
+                                                                        <img src="{{asset('front/assets/images/home1/advertise3.png')}}" alt="Advertise" />
                                                                     </a>
                                                                 </div>
                                                             </div>
@@ -229,7 +217,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li><a href="!#">blog</a></li>
+                                <li><a href="#">blog</a></li>
                                 <li><a href="{{route('contact.page')}}">contact</a></li>
                             </ul>
                         </div>
@@ -249,7 +237,7 @@
                                     <a href="{{route('home.page')}}">home</a>
                                 </li>
                                 <li><a href="about.html">about</a></li>
-                             
+
                                 <li><a href="#!">Account</a>
                                     <ul class="submenu-list">
                                         <li><a href="{{route('customer.login')}}">Customer Login</a></li>
@@ -269,7 +257,7 @@
                                                 @endforeach
                                             </ul>
                                         </li>
-                                        @endforeach  
+                                        @endforeach
                                     </ul>
                                 </li>
 
