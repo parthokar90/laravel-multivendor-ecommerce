@@ -11,10 +11,10 @@
                     <div class="right-part d-flex justify-content-end">
                         <div class="social-area">
                             <ul class="d-flex">
-                                <li><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-pinterest-p"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-google-plus-g"></i></a></li>
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -225,7 +225,7 @@
                             <i class="flaticon-customer-service"></i>
                             <div class="text">
                                 <p>call now</p>
-                                <p>988. 876 76 76 8</p>
+                                <p>+8801765456090</p>
                             </div>
                         </div>
                     </nav>
@@ -236,9 +236,9 @@
                                 <li class="active">
                                     <a href="{{route('home.page')}}">home</a>
                                 </li>
-                                <li><a href="about.html">about</a></li>
+                                <li><a href="#">about</a></li>
 
-                                <li><a href="#!">Account</a>
+                                <li><a href="#">Account</a>
                                     <ul class="submenu-list">
                                         <li><a href="{{route('customer.login')}}">Customer Login</a></li>
                                         <li><a href="{{route('vendor.login')}}">Vendor Login</a></li>

@@ -50,7 +50,7 @@ trait CommonTrait
      //limited active brand list
      public function activeBrand()
      {
-          $data = Brand::where('status', 1)->orderBy('id', 'DESC')->limit(20)->get();
+          $data = Brand::where('status', 1)->orderBy('id', 'DESC')->limit(4)->get();
           return $data;
      }
 

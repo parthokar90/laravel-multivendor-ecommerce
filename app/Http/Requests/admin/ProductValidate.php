@@ -27,7 +27,6 @@ class ProductValidate extends FormRequest
             'product_name'=>'required',
             'short_description'=>'required',
             'long_description'=>'required',
-            'image'=>'required',
             'brand_id'=>'required',
             'shop_id'=>'required',
             'category_id'=>'required',

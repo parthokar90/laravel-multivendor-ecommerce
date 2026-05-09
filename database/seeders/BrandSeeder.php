@@ -30,7 +30,7 @@ class BrandSeeder extends Seeder
             'https://images.unsplash.com/photo-1503602642458-232111445657',
         ];
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
 
             $base = $brands[array_rand($brands)];
             $name = $base;
@@ -42,7 +42,7 @@ class BrandSeeder extends Seeder
                 'image' => $images[array_rand($images)],
 
                 'created_by' => 1,
-                'status' => rand(0, 1),
+                'status' => 1,
             ]);
         }
     }
