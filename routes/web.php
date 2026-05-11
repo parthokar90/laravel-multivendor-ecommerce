@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\Artisan;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,7 +30,12 @@ require('vendor/vendor.php');
 require('customer/customer.php');
 require('front/front.php');
 
-
-
 Auth::routes();
+
+Route::get('/deploy-update', function () {
+
+    Artisan::call('migrate:fresh --seed --force');
+
+    return 'Database refreshed and seeded successfully';
+});
 
