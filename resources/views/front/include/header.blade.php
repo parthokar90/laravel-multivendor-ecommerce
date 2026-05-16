@@ -121,7 +121,7 @@
                                             <p>{{number_format($subTotal)}}</p>
                                         </div>
                                         <div class="check">
-                                            <a href="#" class="button-style1">checkout <span class="btn-dot"></span></a>
+                                            <a href="{{route('checkout.page')}}" class="button-style1">checkout <span class="btn-dot"></span></a>
                                         </div>
                                     </div>
                                 </div>
