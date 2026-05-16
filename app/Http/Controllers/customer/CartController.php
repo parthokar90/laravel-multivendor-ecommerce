@@ -4,115 +4,108 @@ namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Traits\CartTrait;
-use App\Models\customer\ProductCart;
-use App\Models\vendor\ProductAttribute;
+use App\Models\vendor\Product;
 
 class CartController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:web');
-    }
-
-    //import trait
-    use CartTrait;
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Cart Page
      */
     public function index()
     {
-        $subTotal=0;
-        $item=$this->cartItem();
-        $subTotal=$this->cartSubTotal();
-        if($item->count()>0){
-            return view('customer.cart.cartItem',compact('item','subTotal'));
-        }else{
+        $cartItems = session()->get('cart', []);
+
+        if (count($cartItems) <= 0) {
             return view('front.error.cartEmpty');
         }
-        
+
+        $subTotal = 0;
+
+        foreach ($cartItems as $item) {
+            $subTotal += $item['price'] * $item['quantity'];
+        }
+
+        return view('customer.cart.cartItem', compact('cartItems', 'subTotal'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Add To Cart
      */
     public function store(Request $request)
     {
-        //check product quantity must be greater then 0
-        if($request->quantity==0){
-          return back()->with('error','Quantity must not be zero');
+        $request->validate([
+            'product_id' => 'required',
+            'quantity'   => 'required|integer|min:1',
+        ]);
+
+        $product = Product::findOrFail($request->product_id);
+
+        $cart = session()->get('cart', []);
+
+        $key = $product->id;
+
+        if ($request->attribute) {
+            $key = $product->id . '-' . $request->attribute;
         }
 
-        $product_id   =$request->product_id;
-        $attribute_id =$request->attribute;
-
-        //check product has attribute or not
-        $product=ProductAttribute::where('product_id',$product_id)->first();
-        if($product->type_id!='' ){
-
+        if (isset($cart[$key])) {
+            $cart[$key]['quantity'] += $request->quantity;
+        } else {
+            $cart[$key] = [
+                'product_id'   => $product->id,
+                'product_name' => $product->product_name,
+                'price'        => $product->sale_price,
+                'image'        => $product->image,
+                'quantity'     => $request->quantity,
+                'attribute'    => $request->attribute,
+            ];
         }
-     
 
+        session()->put('cart', $cart);
+
+        return back()->with('success', 'Product added to cart');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Update Cart
      */
-    public function show($id)
+    public function update(Request $request)
     {
-        //
+        $cart = session()->get('cart', []);
+
+        foreach ($request->quantity as $key => $qty) {
+            if (isset($cart[$key])) {
+                $cart[$key]['quantity'] = $qty;
+            }
+        }
+
+        session()->put('cart', $cart);
+
+        return back()->with('success', 'Cart updated successfully');
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Delete Item
      */
-    public function edit($id)
+    public function destroy($key)
     {
-        //
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$key])) {
+            unset($cart[$key]);
+            session()->put('cart', $cart);
+        }
+
+        return back()->with('success', 'Item removed successfully');
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Clear Cart (optional)
      */
-    public function update(Request $request, $id)
+    public function clear()
     {
-        //
+        session()->forget('cart');
+
+        return back()->with('success', 'Cart cleared');
     }
-   
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function delete($id){
-        $delete=ProductCart::findOrFail($id);
-        $delete->delete();
-        return back()->with('error','Item has been removed');
-    } 
 }

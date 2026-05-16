@@ -59,12 +59,6 @@
                         </p>
                         @endif
 
-                        <a href="{{ route('product.single', ['id' => $products->id, 'slug' => $products->product_slug]) }}"
-                            class="add-cart button-style1">
-                            View Details
-                            <span class="btn-dot"></span>
-                        </a>
-
                     </div>
                 </div>
             </div>

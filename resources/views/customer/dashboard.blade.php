@@ -4,102 +4,123 @@
 
 @section('content')
 
-<!-- Bread crumb -->
-<div class="page-breadcrumb bg-white">
-    <div class="row align-items-center">
-        <div class="col-lg-3">
-            <h4 class="page-title">Dashboard</h4>
-        </div>
-    </div>
-</div>
+<div class="container-fluid py-4">
 
-<div class="container-fluid">
+    <!-- STATS CARDS -->
+    <div class="row g-3">
 
-    <!-- CARDS -->
-    <div class="row">
-
-        <!-- Total Order -->
-        <div class="col-lg-3 col-md-6 mb-3">
-            <div class="white-box text-center">
-                <i class="fa fa-shopping-cart fa-2x text-primary"></i>
-                <h3>Total Order</h3>
-                <h2>{{ $totalOrder }}</h2>
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow-sm border-0 text-center p-3">
+                <h6>Total Orders</h6>
+                <h2 class="text-primary">{{ $totalOrder }}</h2>
             </div>
         </div>
 
-        <!-- Pending -->
-        <div class="col-lg-3 col-md-6 mb-3">
-            <div class="white-box text-center">
-                <i class="fa fa-clock fa-2x text-warning"></i>
-                <h3>Pending</h3>
-                <h2>{{ $totalPending }}</h2>
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow-sm border-0 text-center p-3">
+                <h6>Pending</h6>
+                <h2 class="text-warning">{{ $totalPending }}</h2>
             </div>
         </div>
 
-        <!-- Completed -->
-        <div class="col-lg-3 col-md-6 mb-3">
-            <div class="white-box text-center">
-                <i class="fa fa-check-circle fa-2x text-success"></i>
-                <h3>Completed</h3>
-                <h2>{{ $totalCompleted }}</h2>
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow-sm border-0 text-center p-3">
+                <h6>Completed</h6>
+                <h2 class="text-success">{{ $totalCompleted }}</h2>
             </div>
         </div>
 
-        <!-- Cancel -->
-        <div class="col-lg-3 col-md-6 mb-3">
-            <div class="white-box text-center">
-                <i class="fa fa-times-circle fa-2x text-danger"></i>
-                <h3>Cancel</h3>
-                <h2>{{ $totalCancel }}</h2>
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow-sm border-0 text-center p-3">
+                <h6>Cancelled</h6>
+                <h2 class="text-danger">{{ $totalCancel }}</h2>
             </div>
         </div>
 
     </div>
 
     <!-- RECENT ORDERS -->
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="white-box">
+    <div class="card shadow-sm border-0 mt-4">
 
-                <h3 class="box-title">Recent Orders</h3>
-
-                <table class="table table-bordered mt-3">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Product</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                        @forelse($recentOrders as $order)
-                        <tr>
-                            <td>#{{ $order->id }}</td>
-                            <td>{{ $order->product_name ?? 'N/A' }}</td>
-                            <td>${{ $order->total_amount ?? 0 }}</td>
-                            <td>
-                                <span class="badge 
-                                    @if($order->status=='completed') bg-success
-                                    @elseif($order->status=='pending') bg-warning
-                                    @else bg-danger @endif">
-                                    {{ ucfirst($order->status) }}
-                                </span>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="4" class="text-center">No Orders Found</td>
-                        </tr>
-                        @endforelse
-
-                    </tbody>
-                </table>
-
-            </div>
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">Recent Orders</h5>
         </div>
+
+        <div class="card-body table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Products</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @forelse($recentOrders as $order)
+
+                    <tr>
+
+                        <td>
+                            <strong>#{{ $order->id }}</strong>
+                        </td>
+
+                        <td>
+                            @foreach($order->items as $item)
+                                <div class="d-flex align-items-center gap-2 mb-2">
+
+                                    <img width="40"
+                                         class="rounded"
+                                         src="{{ asset($item->product->image ?? '') }}">
+
+                                    <div>
+                                        {{ $item->product->product_name ?? 'N/A' }}
+                                        <small class="text-muted d-block">
+                                            Qty: {{ $item->quantity }}
+                                        </small>
+                                    </div>
+
+                                </div>
+                            @endforeach
+                        </td>
+
+                        <td>
+                            <span class="badge
+                                @if($order->status=='completed') bg-success
+                                @elseif($order->status=='pending') bg-warning
+                                @else bg-danger @endif">
+
+                                {{ ucfirst($order->status) }}
+
+                            </span>
+                        </td>
+
+                        <td>
+                            {{ $order->created_at->format('d M, Y') }}
+                        </td>
+
+                    </tr>
+
+                    @empty
+
+                    <tr>
+                        <td colspan="4" class="text-center py-4">
+                            No Orders Found
+                        </td>
+                    </tr>
+
+                    @endforelse
+
+                </tbody>
+
+            </table>
+
+        </div>
+
     </div>
 
 </div>

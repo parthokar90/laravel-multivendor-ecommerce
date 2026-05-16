@@ -58,10 +58,7 @@ class FrontController extends Controller
         ->select('products.id', 'products.product_name', 'products.image', 'products.product_slug')
         ->get();
     } else {
-      $products = ProductCategory::where('category_id', $request->cat_id)
-        ->leftjoin('products', 'products.id', '=', 'product_categories.product_id')
-        ->select('products.id', 'products.product_name', 'products.image', 'products.product_slug')
-        ->get();
+      $products = ProductCategory::get();
     }
     return view('front.product.search', compact('products'));
   }
@@ -69,7 +66,7 @@ class FrontController extends Controller
   //category product method
   public function categoryProduct($id)
   {
-    $category = ProductCategory::where(['category_id' => $id, 'status' => 1])->get();
+    $category = ProductCategory::get();
     return view('front.product.categoryProduct', compact('category'));
   }
 

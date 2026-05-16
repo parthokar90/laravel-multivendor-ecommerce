@@ -3,123 +3,170 @@
 @section('title') Cart Item @endsection
 
 @section('content')
-   <!-- start banner area -->
-   <section class="inner-page banner" data-img="{{asset('front/assets/images/banner.jpg')}}">
+
+<section class="cart-page py-5">
     <div class="container">
+
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2>cart item</h2>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb justify-content-center">
-                      <li class="breadcrumb-item"><a href="{{route('home.page')}}">Home</a></li>
-                      <li class="breadcrumb-item"><a href="{{route('home.page')}}">shop</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">cart</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- end banner area -->
-   <!-- start account area -->
-   <section class="cart-page cart-detail">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <form action="#!">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">image</th>
-                                    <th scope="col">product name</th>
-                                    <th scope="col">price</th>
-                                    <th scope="col">quantity</th>
-                                    <th scope="col">total</th>
-                                    <th scope="col">delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($item as $carts)
-                                <tr>
-                                    <th scope="row" class="pro-img">
-                                        <a href="shop-4-column-sidebar.html">
-                                            @if(isset($carts->attributeType))
-                                              <img width="50px" height="50px" src="{{asset('vendor/product/attribute/'.$carts->image)}}" alt="Product Image"/>
-                                              @else 
-                                               <img width="50px" height="50px" src="{{asset('vendor/product/'.$carts->image)}}" alt="Product Image"/>
-                                            @endif
-                                        </a>
-                                    </th>
-                                    <td class="pro-name">
-                                        <a href="shop-4-column-sidebar.html">{{$carts->product->product_name}}</a>
-                                        @if(isset($carts->attributeType))
-                                        <p>{{$carts->attributeType->attribute_type}}: {{$carts->attributeValue->attribute}}</p>
-                                        @endif 
-                                    </td>
-                                    <td class="pro-price"><p>{{number_format($carts->price)}}</p></td>
-                                    <td class="pro-quantity">
-                                        <div class="d-flex number-spinner justify-content-center">
-                                            <input type="text" class="form-control text-center input-value" value="{{$carts->quantity}}">
-                                            <div class="buttons">
-                                                <button data-dir="up" class="up-btn"><i class="flaticon-plus"></i></button>
-                                                <button data-dir="dwn" class="down-btn"><i class="flaticon-remove"></i></button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="pro-total"><p>{{number_format($carts->sub_total)}}</p></td>
-                                    <td class="pro-delete">
-                                        <a href="{{route('item.delete',$carts->id)}}">
-                                            <i class="flaticon-delete"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @empty
-                                <p>No Item Found</p>
-                               @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="coupon-area d-flex justify-content-between">
-                        <div class="coupon-input">
-                            <input type="text" placeholder="coupon code" class="inputs">
-                            <button class="button-style1">apply coupon <span class="btn-dot"></span></button>
+
+            {{-- LEFT: CART TABLE --}}
+            <div class="col-lg-8">
+
+                <form action="{{ route('cart.update') }}" method="POST">
+                    @csrf
+
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-dark text-white">
+                            <h5 class="mb-0">Your Cart Items</h5>
                         </div>
-                        <button type="submit" class="button-style1">update cart <span class="btn-dot"></span></button>
+
+                        <div class="card-body p-0">
+
+                            <div class="table-responsive">
+                                <table class="table align-middle mb-0">
+
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th>Qty</th>
+                                            <th>Total</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        @forelse($cartItems as $key => $item)
+
+                                        <tr>
+
+                                            {{-- PRODUCT --}}
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+
+                                                    <img width="60"
+                                                        class="rounded"
+                                                        src="{{ asset($item['image']) }}">
+
+                                                    <div>
+                                                        <strong>{{ $item['product_name'] }}</strong>
+
+                                                        @if(!empty($item['attribute']))
+                                                        <div class="text-muted small">
+                                                            {{ $item['attribute'] }}
+                                                        </div>
+                                                        @endif
+                                                    </div>
+
+                                                </div>
+                                            </td>
+
+                                            {{-- PRICE --}}
+                                            <td>
+                                                ৳ {{ number_format($item['price']) }}
+                                            </td>
+
+                                            {{-- QTY --}}
+                                            <td width="120">
+                                                <input type="number"
+                                                    name="quantity[{{ $key }}]"
+                                                    value="{{ $item['quantity'] }}"
+                                                    min="1"
+                                                    class="form-control text-center">
+                                            </td>
+
+                                            {{-- TOTAL --}}
+                                            <td>
+                                                <strong>
+                                                    ৳ {{ number_format($item['price'] * $item['quantity']) }}
+                                                </strong>
+                                            </td>
+
+                                            {{-- DELETE --}}
+                                            <td>
+                                                <a href="{{ route('cart.destroy', $key) }}"
+                                                    class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Remove item?')">
+                                                    ✕
+                                                </a>
+                                            </td>
+
+                                        </tr>
+
+                                        @empty
+
+                                        <tr>
+                                            <td colspan="5" class="text-center py-5">
+                                                Cart is empty
+                                            </td>
+                                        </tr>
+
+                                        @endforelse
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer text-end">
+                            <button type="submit" class="btn btn-dark">
+                                Update Cart
+                            </button>
+                        </div>
+
                     </div>
+
                 </form>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- end account area -->
 
-<!-- start cart-total area -->
-<section class="cart-page cart-total">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 offset-lg-3">
-                <div class="total-content">
-                    <div class="title text-center">
-                        <h5>cart total</h5>
+            </div>
+
+            {{-- RIGHT: SUMMARY --}}
+            <div class="col-lg-4">
+
+                <div class="card shadow-sm border-0">
+
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">Order Summary</h5>
                     </div>
-                    <div class="sub d-flex justify-content-between">
-                        <p>Subtotal:</p>
-                        <p>{{number_format($subTotal)}}</p>
-                    </div>
-                    <div class="checkout">
-                        <div class="d-flex justify-content-between">
-                            <h5>total</h5>
-                            <p>£220.00</p>
+
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal</span>
+                            <strong>৳ {{ number_format($subTotal) }}</strong>
                         </div>
-                        <a href="checkout.html" class="button-style1">checkout <span class="btn-dot"></span></a>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Shipping</span>
+                            <span>Free</span>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between">
+                            <h5>Total</h5>
+                            <h5>৳ {{ number_format($subTotal) }}</h5>
+                        </div>
+
                     </div>
+
+                    <div class="card-footer">
+                        <a href="{{ route('checkout.page') }}"
+                            class="btn btn-success w-100">
+                            Proceed to Checkout
+                        </a>
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
 </section>
+
 @endsection
-
-
-

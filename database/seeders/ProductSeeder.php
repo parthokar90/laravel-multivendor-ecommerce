@@ -62,7 +62,7 @@ class ProductSeeder extends Seeder
                 'status' => 1,
             ]);
 
-            // ✅ attach random 1-3 categories
+            // attach random 1-3 categories
             $randomCategories = collect($categoryIds)
                 ->random(rand(1, 3))
                 ->toArray();

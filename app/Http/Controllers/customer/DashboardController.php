@@ -31,7 +31,9 @@ class DashboardController extends Controller
             ->where('status', 'cancel')
             ->count();
 
-        $recentOrders = Order::where('user_id', $customerId)
+        // IMPORTANT: load order items relation
+        $recentOrders = Order::with('items.product')
+            ->where('user_id', $customerId)
             ->latest()
             ->take(5)
             ->get();

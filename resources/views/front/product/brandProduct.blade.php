@@ -42,10 +42,10 @@
                                 <div class="single-item">
                                     <div class="image-area">
                                         <a href="{{route('product.single',array('id'=>$item->id,'slug'=>$item->product_slug))}}">
-                                            <img src="{{asset('vendor/product/'.$item->image)}}" class="img-active" alt="Product Image"/>
+                                            <img src="{{$item->image}}" class="img-active" alt="Product Image"/>
                                         </a>
                                         <a href="{{route('product.single',array('id'=>$item->id,'slug'=>$item->product_slug))}}">
-                                            <img src="{{asset('vendor/product/'.$item->image)}}" class="img-hover" alt="Product Image"/>
+                                            <img src="{{$item->image}}" class="img-hover" alt="Product Image"/>
                                         </a>
                                         <span class="sale-status">sale</span>
                                         <div class="action">
@@ -63,7 +63,7 @@
                                                     </form>
                                                 </li>
                                                 <li>
-                                                    <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                    <a href="{{route('product.single',array('id'=>$item->id,'slug'=>$item->product_slug))}}">
                                                         <i class="far fa-eye"></i>
                                                         <p class="my-tooltip">
                                                             quick view
@@ -92,18 +92,6 @@
                             @empty
                              <p>No Product Found</p>
                             @endforelse
-                            <div class="col-lg-12">
-                                <div class="pages">
-                                    <ul class="d-flex justify-content-center">
-                                        <li><a href="#!"><i class="flaticon-chevron-1"></i></a></li>
-                                        <li><a href="#!" class="active">1</a></li>
-                                        <li><a href="#!">2</a></li>
-                                        <li><a href="#!">3</a></li>
-                                        <li><a href="#!">4</a></li>
-                                        <li><a href="#!"><i class="flaticon-chevron"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -25,6 +25,7 @@
 </section>
 
 
+
 <!-- Product Details -->
 <section class="shop-detail detail py-5">
     <div class="container">
@@ -37,8 +38,7 @@
                 <img
                     src="{{ $product->image }}"
                     class="img-fluid"
-                    alt="Product"
-                >
+                    alt="Product">
 
             </div>
 
@@ -65,9 +65,9 @@
                             ৳ {{ number_format($product->sale_price) }}
 
                             @if($product->regular_price > 0)
-                                <span>
-                                    ৳ {{ number_format($product->regular_price) }}
-                                </span>
+                            <span>
+                                ৳ {{ number_format($product->regular_price) }}
+                            </span>
                             @endif
                         </h4>
 
@@ -76,10 +76,10 @@
 
                         <!-- Attributes -->
                         @foreach($product->productAttributeValue as $value)
-                            <label>
-                                <input type="radio" name="attribute" value="{{ $value->value_id }}">
-                                {{ $value->attributeValue->attribute ?? 'N/A' }}
-                            </label><br>
+                        <label>
+                            <input type="radio" name="attribute" value="{{ $value->value_id }}">
+                            {{ $value->attributeValue->attribute ?? 'N/A' }}
+                        </label><br>
                         @endforeach
 
 
@@ -87,11 +87,11 @@
                         <div class="mt-3 d-flex align-items-center gap-3">
 
                             <input type="number"
-                                   name="quantity"
-                                   value="1"
-                                   min="1"
-                                   class="form-control"
-                                   style="width: 100px;">
+                                name="quantity"
+                                value="1"
+                                min="1"
+                                class="form-control"
+                                style="width: 100px;">
 
                             <button type="submit" class="btn btn-dark">
                                 Add to Cart
@@ -126,9 +126,9 @@
                             <h6>
                                 Category:
                                 @forelse($product->category as $category)
-                                    {{ optional($category->categoryName)->category_name }},
+                                {{ optional($category->categoryName)->category_name }},
                                 @empty
-                                    Uncategorized
+                                Uncategorized
                                 @endforelse
                             </h6>
 

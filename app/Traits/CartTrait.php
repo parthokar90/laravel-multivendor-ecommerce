@@ -1,25 +1,37 @@
 <?php
+
 namespace App\Traits;
-use App\Models\customer\ProductCart;
-use Auth;
 
-trait CartTrait{
-
-    //this function show total cart item count
-    public function cartCount(){
-       $data=ProductCart::where('user_id',auth()->user()->id)->count();
-       return $data;
+trait CartTrait
+{
+    /**
+     * Cart Count
+     */
+    public function cartCount()
+    {
+        return count(session()->get('cart', []));
     }
 
-    //this function show all cart item
-    public function cartItem(){
-        $data=ProductCart::where('user_id',auth()->user()->id)->orderBy('id','DESC')->with('product','attributeType','attributeValue')->get();
-        return $data;
+    /**
+     * Cart Items
+     */
+    public function cartItem()
+    {
+        return session()->get('cart', []);
     }
 
-    //this function show cart subtotal 
-    public function cartSubTotal(){
-        $data=ProductCart::where('user_id',auth()->user()->id)->sum('sub_total');
-        return $data;
-    } 
+    /**
+     * Cart Subtotal
+     */
+    public function cartSubTotal()
+    {
+        $subTotal = 0;
+
+        foreach (session()->get('cart', []) as $item) {
+
+            $subTotal += $item['price'] * $item['quantity'];
+        }
+
+        return $subTotal;
+    }
 }

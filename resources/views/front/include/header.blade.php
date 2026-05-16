@@ -86,28 +86,34 @@
                                             <a href="{{route('cart.index')}}">view cart</a>
                                         </div>
                                         <ul>
-                                            @foreach($cartItem as $item)
+                                            @foreach($cartItem as $key => $item)
+
                                             <li>
                                                 <div class="d-flex position-relative">
-                                                    @if(isset($item->attributeType))
-                                                    <img src="{{asset('vendor/product/attribute/'.$item->image)}}" alt="Product Image" />
-                                                    @else
-                                                    <img src="{{asset('vendor/product/'.$item->image)}}" alt="Product Image" />
-                                                    @endif
+
+                                                    <img src="{{ asset($item['image']) }}" alt="Product Image" />
+
                                                     <div class="text">
-                                                        <a href="shop-detail-left.html">
-                                                            <h5>{{$item->product->product_name}}</h5>
-                                                        </a>
-                                                        @if(isset($item->attributeType))
-                                                        <p>{{$item->attributeType->attribute_type}}: {{$item->attributeValue->attribute}}</p>
+
+                                                        <h5>{{ $item['product_name'] }}</h5>
+
+                                                        @if($item['attribute'])
+                                                        <p>Attribute: {{ $item['attribute'] }}</p>
                                                         @endif
-                                                        <p>{{$item->quantity}} X {{number_format($item->price)}}</p>
-                                                        <a href="#!" class="icon">
+
+                                                        <p>
+                                                            {{ $item['quantity'] }} X {{ number_format($item['price']) }}
+                                                        </p>
+
+                                                        <a href="{{ route('cart.destroy', $key) }}" class="icon">
                                                             <i class="far fa-times-circle"></i>
                                                         </a>
+
                                                     </div>
+
                                                 </div>
                                             </li>
+
                                             @endforeach
                                         </ul>
                                         <div class="total d-flex justify-content-between">

@@ -2,17 +2,17 @@
 
 @section('title') Category Product @endsection
 
-@section('content') 
-  <!-- start banner area -->
-  <section class="inner-page banner" data-img="{{asset('front/assets/images/banner.jpg')}}">
+@section('content')
+<!-- start banner area -->
+<section class="inner-page banner" data-img="{{asset('front/assets/images/banner.jpg')}}">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2>Category Product</h2>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center">
-                      <li class="breadcrumb-item"><a href="{{route('home.page')}}">Home</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">shop</li>
+                        <li class="breadcrumb-item"><a href="{{route('home.page')}}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">shop</li>
                     </ol>
                 </nav>
             </div>
@@ -20,9 +20,9 @@
     </div>
 </section>
 <!-- end banner area -->
- 
- <!-- start main area -->
- <section class="shop-page left-sidebar main">
+
+<!-- start main area -->
+<section class="shop-page left-sidebar main">
     <div class="container">
         @include('message.message')
         <div class="row">
@@ -42,10 +42,10 @@
                                 <div class="single-item">
                                     <div class="image-area">
                                         <a href="{{route('product.single',array('id'=>$item->product->id,'slug'=>$item->product->product_slug))}}">
-                                            <img src="{{asset('vendor/product/'.$item->product->image)}}" class="img-active" alt="Product Image"/>
+                                            <img src="{{$item->product->image}}" class="img-active" alt="Product Image" />
                                         </a>
                                         <a href="{{route('product.single',array('id'=>$item->product->id,'slug'=>$item->product->product_slug))}}">
-                                            <img src="{{asset('vendor/product/'.$item->product->image)}}" class="img-hover" alt="Product Image"/>
+                                            <img src="{{$item->product->image}}" class="img-hover" alt="Product Image" />
                                         </a>
                                         <span class="sale-status">sale</span>
                                         <div class="action">
@@ -59,7 +59,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                    <a href="{{route('product.single',array('id'=>$item->product->id,'slug'=>$item->product->product_slug))}}">
                                                         <i class="far fa-eye"></i>
                                                         <p class="my-tooltip">
                                                             quick view
@@ -80,27 +80,16 @@
                                         <a href="{{route('product.single',array('id'=>$item->product->id,'slug'=>$item->product->product_slug))}}">
                                             <h5>{{$item->product->product_name}}</h5>
                                         </a>
-                                        
-                                        <p><span>$110</span> - $78</p>
+
+                                        ৳ {{ number_format($item->product->sale_price) }}
+
                                         <a href="{{route('product.single',array('id'=>$item->product->id,'slug'=>$item->product->product_slug))}}" class="add-cart button-style1">read more <span class="btn-dot"></span></a>
                                     </div>
                                 </div>
                             </div>
                             @empty
-                             <p>No Product Found</p>
+                            <p>No Product Found</p>
                             @endforelse
-                            <div class="col-lg-12">
-                                <div class="pages">
-                                    <ul class="d-flex justify-content-center">
-                                        <li><a href="#!"><i class="flaticon-chevron-1"></i></a></li>
-                                        <li><a href="#!" class="active">1</a></li>
-                                        <li><a href="#!">2</a></li>
-                                        <li><a href="#!">3</a></li>
-                                        <li><a href="#!">4</a></li>
-                                        <li><a href="#!"><i class="flaticon-chevron"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
