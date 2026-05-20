@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AccountController;
+use App\Http\Controllers\customer\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\customer\DashboardController;
 use App\Http\Controllers\customer\CartController;
 use App\Http\Controllers\customer\WishlistController;
 use App\Http\Controllers\customer\OrderController;
+
 
 
 //login route start
@@ -55,3 +56,6 @@ Route::post('/order/place', [OrderController::class, 'placeOrder'])
 Route::resource('wishlist', WishlistController::class);
 Route::get('add/wishlist/{id}', [WishlistController::class, 'addWishlist'])->name('add.wishlist');
 //wishlist route end
+
+Route::post('/logout', [LoginController::class, 'logout'])
+    ->name('logout');
