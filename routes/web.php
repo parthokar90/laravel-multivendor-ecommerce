@@ -2,40 +2,39 @@
 
 use Illuminate\Support\Facades\Route;
 
-use Illuminate\Support\Facades\Artisan;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes require inside directory
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-require('admin/admin.php');
-require('vendor/vendor.php');
-require('customer/customer.php');
-require('front/front.php');
+Route::middleware('web')->group(function () {
 
-Auth::routes();
+    /*
+    |--------------------------------------------------------------------------
+    | Front Routes
+    |--------------------------------------------------------------------------
+    */
+    require base_path('routes/front/front.php');
 
-Route::get('/deploy-update', function () {
+    /*
+    |--------------------------------------------------------------------------
+    | Customer Routes
+    |--------------------------------------------------------------------------
+    */
+    require base_path('routes/customer/customer.php');
 
-    Artisan::call('migrate:fresh --seed --force');
+    /*
+    |--------------------------------------------------------------------------
+    | Vendor Routes
+    |--------------------------------------------------------------------------
+    */
+    require base_path('routes/vendor/vendor.php');
 
-    return 'Database refreshed and seeded successfully';
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Routes
+    |--------------------------------------------------------------------------
+    */
+    require base_path('routes/admin/admin.php');
 });
-
