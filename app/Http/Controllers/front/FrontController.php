@@ -3,98 +3,124 @@
 namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\vendor\Shop;
+use App\Http\Requests\front\SearchRequest;
+use App\Models\admin\Blog;
+use App\Models\admin\Slider;
 use App\Models\vendor\Product;
 use App\Models\vendor\ProductCategory;
-use App\Models\admin\Slider;
-use App\Models\admin\Blog;
-use App\Models\vendor\ProductBrand;
+use App\Models\vendor\Shop;
 use App\Traits\CommonTrait;
+use Illuminate\View\View;
 
 class FrontController extends Controller
 {
-  //import trait
   use CommonTrait;
 
-  //home page method
-  public function index()
+  /**
+   * Display the home page.
+   */
+  public function index(): View
   {
-    $shop = $this->activeShop();
-    $brand = $this->activeBrand();
-    $slider = Slider::where('status', 1)->orderBy('id', 'DESC')->get();
-    $featured = Product::where(['status' => 1, 'is_featured' => 1])->orderBy('id', 'DESC')->get();
-    $blog = Blog::where('status', 1)->orderBy('id', 'DESC')->limit(3)->get();
-    return view('front.index', compact('shop', 'brand', 'slider', 'featured', 'blog'));
+    return view('front.index', [
+      'shop'     => $this->activeShop(),
+      'brand'    => $this->activeBrand(),
+      'slider'   => Slider::active()->latest()->get(),
+      'featured' => Product::active()->featured()->latest()->get(),
+      'blog'     => Blog::active()->latest()->limit(3)->get(),
+    ]);
   }
 
-  //contact method view
-  public function contact()
+  /**
+   * Display the contact page.
+   */
+  public function contact(): View
   {
     return view('front.page.contact');
   }
 
-  //shop single method
-  public function shopSingle($id)
+  /**
+   * Display a single shop's detail page.
+   */
+  public function shopSingle(int $id, string $slug): View
   {
     $shop = Shop::findOrFail($id);
+
     return view('front.shop.shopDetails', compact('shop'));
   }
 
-  //product single method
-  public function productSingle($id)
+  /**
+   * Display a single product's detail page.
+   */
+  public function productSingle(int $id, string $slug): View
   {
+
     $product = Product::findOrFail($id);
-    $attributeType = $product->productAttributeType($id);
+
+    $attributeType = $product->productAttributeType($product->id);
+
     return view('front.product.productDetails', compact('product', 'attributeType'));
   }
 
-  //product search
-  public function search(Request $request)
+  /**
+   * Handle product search.
+   */
+  public function search(SearchRequest $request): View
   {
-    if ($request->cat_id == '') {
-      $products = Product::where('status', 1)
-        ->where('product_name', 'like', '%' . $request->search . '%')
-        ->select('products.id', 'products.product_name', 'products.image', 'products.product_slug')
-        ->get();
-    } else {
-      $products = ProductCategory::get();
-    }
+    $products = $request->filled('cat_id')
+      ? ProductCategory::find($request->cat_id)?->products()->active()->get() ?? collect()
+      : Product::active()
+      ->where('product_name', 'like', "%{$request->search}%")
+      ->select('id', 'product_name', 'image', 'product_slug')
+      ->get();
+
     return view('front.product.search', compact('products'));
   }
 
-  //category product method
-  public function categoryProduct($id)
+  /**
+   * Display products belonging to a category.
+   */
+  public function categoryProduct(ProductCategory $category): View
   {
-    $category = ProductCategory::get();
     return view('front.product.categoryProduct', compact('category'));
   }
 
-  //all active category
-  public function allCategory()
+  /**
+   * Display all active categories.
+   */
+  public function allCategory(): View
   {
-    $category = $this->activeCategory();
-    return view('front.category.allCategory', compact('category'));
+    return view('front.category.allCategory', [
+      'category' => $this->activeCategory(),
+    ]);
   }
 
-  //all active shop
-  public function allShop()
+  /**
+   * Display all active shops.
+   */
+  public function allShop(): View
   {
-    $allShop = $this->allActiveShop();
-    return view('front.shop.allShop', compact('allShop'));
+    return view('front.shop.allShop', [
+      'allShop' => $this->allActiveShop(),
+    ]);
   }
 
-  //all active shop
-  public function allBrand()
+  /**
+   * Display all active brands.
+   */
+  public function allBrand(): View
   {
-    $allbrand = $this->allActiveBrand();
-    return view('front.brand.allBrand', compact('allbrand'));
+    return view('front.brand.allBrand', [
+      'allbrand' => $this->allActiveBrand(),
+    ]);
   }
 
-  //brand product method
-  public function brandProduct($id)
+  /**
+   * Display products belonging to a brand.
+   */
+  public function brandProduct(int $id): View
   {
-    $brand = Product::where(['brand_id' => $id, 'status' => 1])->get();
+    $brand = Product::active()->where('brand_id', $id)->get();
+
     return view('front.product.brandProduct', compact('brand'));
   }
 }

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\front\FrontController;
 
-
+Auth::routes();
 //home page route start
   Route::get('/', [FrontController::class,'index'])->name('home.page');
 //home page route end
