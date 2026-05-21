@@ -3,47 +3,25 @@
 namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Models\customer\Order;
+use App\Services\DashboardService;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    public function __construct()
-    {
+    public function __construct(
+        private readonly DashboardService $dashboardService
+    ) {
         $this->middleware('auth:web');
     }
 
-    public function index()
+    /**
+     * Show the customer dashboard.
+     */
+    public function index(Request $request): View
     {
-        $customerId = Auth::id();
+        $summary = $this->dashboardService->getSummary($request->user()->id);
 
-        $totalOrder = Order::where('user_id', $customerId)->count();
-
-        $totalPending = Order::where('user_id', $customerId)
-            ->where('status', 'pending')
-            ->count();
-
-        $totalCompleted = Order::where('user_id', $customerId)
-            ->where('status', 'completed')
-            ->count();
-
-        $totalCancel = Order::where('user_id', $customerId)
-            ->where('status', 'cancel')
-            ->count();
-
-        // IMPORTANT: load order items relation
-        $recentOrders = Order::with('items.product')
-            ->where('user_id', $customerId)
-            ->latest()
-            ->take(5)
-            ->get();
-
-        return view('customer.dashboard', compact(
-            'totalOrder',
-            'totalPending',
-            'totalCompleted',
-            'totalCancel',
-            'recentOrders'
-        ));
+        return view('customer.dashboard', $summary);
     }
 }

@@ -4,10 +4,20 @@ namespace App\Models\customer;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Order extends Model
 {
     use HasFactory;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Status Constants
+    |--------------------------------------------------------------------------
+    */
+    public const STATUS_PENDING   = 'pending';
+    public const STATUS_COMPLETED = 'completed';
+    public const STATUS_CANCELLED = 'cancelled';
 
     protected $fillable = [
         'user_id',
@@ -24,5 +34,30 @@ class Order extends Model
     public function items()
     {
         return $this->hasMany(OrderItem::class, 'order_id');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Query Scopes
+    |--------------------------------------------------------------------------
+    */
+    public function scopeForCustomer(Builder $query, int $customerId): Builder
+    {
+        return $query->where('user_id', $customerId);
+    }
+
+    public function scopePending(Builder $query): Builder
+    {
+        return $query->where('status', self::STATUS_PENDING);
+    }
+
+    public function scopeCompleted(Builder $query): Builder
+    {
+        return $query->where('status', self::STATUS_COMPLETED);
+    }
+
+    public function scopeCancelled(Builder $query): Builder
+    {
+        return $query->where('status', self::STATUS_CANCELLED);
     }
 }
