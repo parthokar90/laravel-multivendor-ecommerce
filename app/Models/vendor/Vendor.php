@@ -16,9 +16,24 @@ class Vendor extends Authenticatable
 
     protected $guard = 'vendor';
 
+    /*
+    |--------------------------------------------------------------------------
+    | Role Constants
+    |--------------------------------------------------------------------------
+    */
+    public const ROLE_VENDOR = 2;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Status Constants
+    |--------------------------------------------------------------------------
+    */
+    public const STATUS_INACTIVE = 0;
+    public const STATUS_ACTIVE   = 1;
+
     //this function show vendor shop information
-    public function shops(){
+    public function shops()
+    {
         return $this->hasOne(Shop::class, 'vendor_id');
     }
-
 }

@@ -10,8 +10,17 @@ class Shop extends Model
 {
     use HasFactory;
 
+    /*
+    |--------------------------------------------------------------------------
+    | Status Constants
+    |--------------------------------------------------------------------------
+    */
+    public const STATUS_INACTIVE = 0;
+    public const STATUS_ACTIVE   = 1;
+
     //shop product
-    public function products(){
-        return $this->hasMany(Product::class,'shop_id');
-    } 
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'shop_id');
+    }
 }
