@@ -1,4 +1,0 @@
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/parthoin/multivendor.partho.info
-    - /bin/cp -R * $DEPLOYPATH
