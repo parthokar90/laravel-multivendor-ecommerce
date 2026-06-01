@@ -88,7 +88,7 @@ git@github.com:parthokar90/laravel-multivendor-ecommerce.git
 Move into the project directory.
 
 ```bash
-cd your-repository-name
+cd laravel-multivendor-ecommerce
 ```
 
 3️⃣ Install PHP Dependencies
