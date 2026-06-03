@@ -51,6 +51,7 @@
     <link rel="stylesheet" href="{{asset('front/assets/css/responsive.css')}}">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @stack('css')
 </head>
 
 <body>
@@ -72,6 +73,10 @@
     @yield('content')
     <!-- end content -->
 
+    @section('css')
+
+    @endsection
+
     <!-- start footer area -->
     @include('front.include.footer')
     <!-- end footer area -->
@@ -80,10 +85,41 @@
     @if(session('success'))
     <script>
         Swal.fire({
+            toast: true,
+            position: 'top-end',
             icon: 'success',
-            title: 'Success',
-            text: "{{ session('success') }}",
-            confirmButtonColor: '#3085d6',
+            title: "{{ session('success') }}",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        });
+    </script>
+    @endif
+
+    @if(session('error'))
+    <script>
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'error',
+            title: "{{ session('error') }}",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        });
+    </script>
+    @endif
+
+    @if(session('warning'))
+    <script>
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'warning',
+            title: "{{ session('warning') }}",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
         });
     </script>
     @endif

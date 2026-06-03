@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\customer\DashboardController;
 use App\Http\Controllers\customer\CartController;
 use App\Http\Controllers\customer\WishlistController;
+use App\Http\Controllers\customer\CheckoutController;
 use App\Http\Controllers\customer\OrderController;
 
 
@@ -37,16 +38,7 @@ Route::prefix('cart')->group(function () {
   Route::get('/clear', [CartController::class, 'clear'])->name('cart.clear');
 });
 
-Route::get('/checkout', function () {
-  $cart = session()->get('cart', []);
-  $subTotal = 0;
-
-  foreach ($cart as $item) {
-    $subTotal += $item['price'] * $item['quantity'];
-  }
-
-  return view('customer.checkout', compact('cart', 'subTotal'));
-})->name('checkout.page');
+Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout.page');
 
 Route::post('/order/place', [OrderController::class, 'placeOrder'])
   ->name('order.place');

@@ -2,9 +2,109 @@
 
 @section('title') Home @endsection
 
+@push('css')
+<style>
+    .custom-card {
+        border: none;
+        border-radius: 18px;
+        overflow: hidden;
+        background: #fff;
+        transition: all .35s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+    }
+
+    .custom-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, .15);
+    }
+
+    .custom-card .card-img-top {
+        height: 220px;
+        width: 100%;
+        object-fit: cover;
+        transition: .5s;
+    }
+
+    .custom-card:hover .card-img-top {
+        transform: scale(1.08);
+    }
+
+    .custom-card .card-body {
+        padding: 24px;
+    }
+
+    .custom-card .card-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #222;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .custom-card .card-text {
+        color: #777;
+        line-height: 1.8;
+        font-size: 14px;
+    }
+
+    .btn-black {
+        background: #111;
+        color: #fff;
+        border-radius: 50px;
+        padding: 10px 24px;
+        border: none;
+        font-weight: 500;
+        transition: .3s;
+    }
+
+    .btn-black:hover {
+        background: #ff6b00;
+        color: #fff;
+    }
+
+    .shop-card-link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .shop-product-count {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 16px;
+        background: #f5f5f5;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #555;
+    }
+
+    .blog-date {
+        color: #999;
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .section-title {
+        font-size: 34px;
+        font-weight: 700;
+        margin-bottom: 40px;
+        text-align: center;
+        color: #222;
+    }
+
+    @media(max-width:768px) {
+        .custom-card .card-title {
+            font-size: 18px;
+        }
+
+        .custom-card .card-img-top {
+            height: 200px;
+        }
+    }
+</style>
+@endpush
+
 @section('content')
-
-
 
 <!-- ================= SHOP LIST ================= -->
 <section class="py-5">

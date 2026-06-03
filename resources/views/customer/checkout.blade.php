@@ -68,7 +68,44 @@
 
                     <div class="card-body">
 
-                        <p>Items will be loaded here...</p>
+                        @if(!empty($cart) && count($cart) > 0)
+
+                        @foreach($cart as $key => $item)
+
+                        @php
+                        $price = $item['price'] ?? 0;
+                        $qty = $item['quantity'] ?? 1;
+                        $name = $item['product_name'] ?? 'Unknown Product';
+                        $image = $item['image'] ?? 'default.png';
+                        @endphp
+
+                        <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+
+                            <div class="d-flex gap-2 align-items-center">
+
+                                <img src="{{ asset($image) }}"
+                                    width="50"
+                                    height="50"
+                                    class="rounded">
+
+                                <div>
+                                    <h6 class="mb-0">{{ $name }}</h6>
+                                    <small class="text-muted">Qty: {{ $qty }}</small>
+                                </div>
+
+                            </div>
+
+                            <div>
+                                ৳ {{ number_format($price * $qty) }}
+                            </div>
+
+                        </div>
+
+                        @endforeach
+
+                        @else
+                        <p class="text-muted">Cart is empty</p>
+                        @endif
 
                         <hr>
 
