@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-7 order-3 order-md-2">
-                    <form action="{{route('product.search')}}" method="get">
+                    <form action="{{route('item.search')}}" method="get">
                         <div class="form">
                             <div class="select-area">
                                 <select class="select" name="cat_id">
