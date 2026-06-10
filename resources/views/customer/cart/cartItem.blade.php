@@ -4,164 +4,144 @@
 
 @section('content')
 
-<section class="cart-page py-5">
-    <div class="container">
+<section class="py-12 bg-stone-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="row">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-            {{-- LEFT: CART TABLE --}}
-            <div class="col-lg-8">
-
+            {{-- LEFT: CART TABLE (8 Columns) --}}
+            <div class="lg:col-span-8">
                 <form action="{{ route('cart.update') }}" method="POST">
                     @csrf
 
-                    <div class="card shadow-sm border-0">
-                        <div class="card-header bg-dark text-white">
-                            <h5 class="mb-0">Your Cart Items</h5>
+                    <div class="bg-white rounded-xl border border-stone-200 shadow-sm overflow-hidden">
+                        <div class="bg-stone-900 px-6 py-4">
+                            <h5 class="text-white text-lg font-semibold tracking-wide">Your Cart Items</h5>
                         </div>
 
-                        <div class="card-body p-0">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse align-middle">
+                                <thead class="bg-stone-50 border-b border-stone-200 text-stone-700 text-xs font-bold uppercase tracking-wider">
+                                    <tr>
+                                        <th class="px-6 py-4">Product</th>
+                                        <th class="px-4 py-4 text-center">Price</th>
+                                        <th class="px-4 py-4 text-center">Qty</th>
+                                        <th class="px-4 py-4 text-center">Total</th>
+                                        <th class="px-6 py-4 text-right">Action</th>
+                                    </tr>
+                                </thead>
 
-                            <div class="table-responsive">
-                                <table class="table align-middle mb-0">
+                                <tbody class="divide-y divide-stone-100 text-sm text-stone-800">
+                                    @forelse($cartItems as $key => $item)
+                                    <tr class="hover:bg-stone-50/50 transition">
 
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Qty</th>
-                                            <th>Total</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                        @forelse($cartItems as $key => $item)
-
-                                        <tr>
-
-                                            {{-- PRODUCT --}}
-                                            <td>
-                                                <div class="d-flex align-items-center gap-2">
-
-                                                    <img width="60"
-                                                        class="rounded"
-                                                        src="{{ asset($item['image']) }}">
-
-                                                    <div>
-                                                        <strong>{{ $item['product_name'] }}</strong>
-
-                                                        @if(!empty($item['attribute']))
-                                                        <div class="text-muted small">
-                                                            {{ $item['attribute'] }}
-                                                        </div>
-                                                        @endif
-                                                    </div>
-
+                                        {{-- PRODUCT --}}
+                                        <td class="px-6 py-5">
+                                            <div class="flex items-center space-x-4">
+                                                <div class="w-16 h-16 flex-shrink-0 bg-stone-100 rounded-lg p-1 border border-stone-200 overflow-hidden">
+                                                    <img class="w-full h-full object-cover rounded" src="{{ asset($item['image']) }}" alt="{{ $item['product_name'] }}">
                                                 </div>
-                                            </td>
+                                                <div>
+                                                    <span class="font-semibold text-stone-900 block mb-0.5">{{ $item['product_name'] }}</span>
+                                                    @if(!empty($item['attribute']))
+                                                    <span class="text-xs text-stone-400 bg-stone-100 px-2 py-0.5 rounded inline-block font-medium">
+                                                        {{ $item['attribute'] }}
+                                                    </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </td>
 
-                                            {{-- PRICE --}}
-                                            <td>
-                                                ৳ {{ number_format($item['price']) }}
-                                            </td>
+                                        {{-- PRICE --}}
+                                        <td class="px-4 py-5 text-center font-medium text-stone-600 whitespace-nowrap">
+                                            ৳ {{ number_format($item['price']) }}
+                                        </td>
 
-                                            {{-- QTY --}}
-                                            <td width="120">
+                                        {{-- QTY --}}
+                                        <td class="px-4 py-5 text-center">
+                                            <div class="w-20 mx-auto">
                                                 <input type="number"
                                                     name="quantity[{{ $key }}]"
                                                     value="{{ $item['quantity'] }}"
                                                     min="1"
-                                                    class="form-control text-center">
-                                            </td>
+                                                    class="w-full bg-white border border-stone-300 text-stone-900 text-center rounded-md px-2 py-1.5 focus:ring-1 focus:ring-stone-900 focus:border-stone-900 outline-none transition text-sm font-semibold">
+                                            </div>
+                                        </td>
 
-                                            {{-- TOTAL --}}
-                                            <td>
-                                                <strong>
-                                                    ৳ {{ number_format($item['price'] * $item['quantity']) }}
-                                                </strong>
-                                            </td>
+                                        {{-- TOTAL --}}
+                                        <td class="px-4 py-5 text-center font-bold text-stone-900 whitespace-nowrap">
+                                            ৳ {{ number_format($item['price'] * $item['quantity']) }}
+                                        </td>
 
-                                            {{-- DELETE --}}
-                                            <td>
-                                                <a href="{{ route('cart.destroy', $key) }}"
-                                                    class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Remove item?')">
-                                                    ✕
-                                                </a>
-                                            </td>
+                                        {{-- DELETE ACTION --}}
+                                        <td class="px-6 py-5 text-right">
+                                            <a href="{{ route('cart.destroy', $key) }}"
+                                                class="inline-flex items-center justify-center w-8 h-8 rounded-full border border-rose-100 text-rose-500 bg-rose-50/30 hover:bg-rose-50 hover:text-rose-600 transition duration-200 text-xs font-bold"
+                                                onclick="return confirm('Remove item?')">
+                                                ✕
+                                            </a>
+                                        </td>
 
-                                        </tr>
-
-                                        @empty
-
-                                        <tr>
-                                            <td colspan="5" class="text-center py-5">
-                                                Cart is empty
-                                            </td>
-                                        </tr>
-
-                                        @endforelse
-
-                                    </tbody>
-
-                                </table>
-                            </div>
-
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan="5" class="px-6 py-12 text-center text-stone-400 font-medium">
+                                            <div class="flex flex-col items-center justify-center space-y-2">
+                                                <span class="text-3xl">🛒</span>
+                                                <span>Your cart is empty.</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
 
-                        <div class="card-footer text-end">
-                            <button type="submit" class="btn btn-dark">
+                        @if(count($cartItems) > 0)
+                        <div class="bg-stone-50 border-t border-stone-200 px-6 py-4 text-right">
+                            <button type="submit" class="inline-flex items-center justify-center bg-stone-900 hover:bg-amber-600 text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-lg shadow-sm transition duration-300">
                                 Update Cart
                             </button>
                         </div>
+                        @endif
 
                     </div>
-
                 </form>
-
             </div>
 
-            {{-- RIGHT: SUMMARY --}}
-            <div class="col-lg-4">
+            {{-- RIGHT: SUMMARY (4 Columns) --}}
+            <div class="lg:col-span-4">
+                <div class="bg-white rounded-xl border border-stone-200 shadow-sm overflow-hidden sticky top-6">
 
-                <div class="card shadow-sm border-0">
-
-                    <div class="card-header bg-light">
-                        <h5 class="mb-0">Order Summary</h5>
+                    <div class="bg-stone-50 border-b border-stone-200 px-6 py-4">
+                        <h5 class="text-stone-900 text-base font-bold uppercase tracking-wider">Order Summary</h5>
                     </div>
 
-                    <div class="card-body">
-
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Subtotal</span>
-                            <strong>৳ {{ number_format($subTotal) }}</strong>
+                    <div class="p-6 space-y-4">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-stone-500">Subtotal</span>
+                            <span class="font-semibold text-stone-900">৳ {{ number_format($subTotal) }}</span>
                         </div>
 
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Shipping</span>
-                            <span>Free</span>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-stone-500">Shipping</span>
+                            <span class="font-semibold text-emerald-600 uppercase tracking-wide text-xs bg-emerald-50 px-2 py-0.5 rounded">Free</span>
                         </div>
 
-                        <hr>
-
-                        <div class="d-flex justify-content-between">
-                            <h5>Total</h5>
-                            <h5>৳ {{ number_format($subTotal) }}</h5>
+                        <div class="border-t border-stone-100 pt-4 flex justify-between items-baseline">
+                            <h5 class="text-stone-900 font-bold text-base">Total</h5>
+                            <h5 class="text-stone-900 font-black text-xl">৳ {{ number_format($subTotal) }}</h5>
                         </div>
-
                     </div>
 
-                    <div class="card-footer">
+                    <div class="px-6 pb-6">
                         <a href="{{ route('checkout.page') }}"
-                            class="btn btn-success w-100">
+                            class="w-full inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold uppercase tracking-wider py-3 px-6 rounded-lg shadow-sm transition duration-300 text-center">
                             Proceed to Checkout
                         </a>
                     </div>
 
                 </div>
-
             </div>
 
         </div>
