@@ -64,37 +64,29 @@
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <a href="#" class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-stone-100 flex items-end p-6 shadow-sm">
-                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=500&q=80" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Fashion">
-                <div class="absolute inset-0 bg-gradient-to-t filter from-stone-950/80 via-stone-950/20 to-transparent"></div>
-                <div class="relative z-10 w-full text-center">
-                    <h5 class="text-white font-bold text-base md:text-lg tracking-wide group-hover:text-amber-400 transition">Men's Fashion</h5>
-                </div>
-            </a>
+            @forelse ($allCategory->take(8) as $categorys)
+            <div class="h-full">
+                <a href="{{ route('category.product', ['id' => $categorys->id, 'slug' => $categorys->slug ?? Str::slug($categorys->category_name)]) }}" class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-gradient-to-br from-stone-900 to-stone-950 flex flex-col items-center justify-between p-6 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500 ease-in-out">
+                    
+                    <div class="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+                    
+                    <div class="my-auto w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white text-3xl font-black uppercase tracking-wider shadow-inner group-hover:bg-amber-500 group-hover:text-stone-950 group-hover:scale-110 transition duration-500 border border-white/10">
+                        {{ substr($categorys->category_name, 0, 1) }}
+                    </div>
 
-            <a href="#" class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-stone-100 flex items-end p-6 shadow-sm">
-                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=500&q=80" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Women">
-                <div class="absolute inset-0 bg-gradient-to-t filter from-stone-950/80 via-stone-950/20 to-transparent"></div>
-                <div class="relative z-10 w-full text-center">
-                    <h5 class="text-white font-bold text-base md:text-lg tracking-wide group-hover:text-amber-400 transition">Women's Clothing</h5>
-                </div>
-            </a>
-
-            <a href="#" class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-stone-100 flex items-end p-6 shadow-sm">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Footwear">
-                <div class="absolute inset-0 bg-gradient-to-t filter from-stone-950/80 via-stone-950/20 to-transparent"></div>
-                <div class="relative z-10 w-full text-center">
-                    <h5 class="text-white font-bold text-base md:text-lg tracking-wide group-hover:text-amber-400 transition">Premium Shoes</h5>
-                </div>
-            </a>
-
-            <a href="#" class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-stone-100 flex items-end p-6 shadow-sm">
-                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Accessories">
-                <div class="absolute inset-0 bg-gradient-to-t filter from-stone-950/80 via-stone-950/20 to-transparent"></div>
-                <div class="relative z-10 w-full text-center">
-                    <h5 class="text-white font-bold text-base md:text-lg tracking-wide group-hover:text-amber-400 transition">Luxury Gadgets</h5>
-                </div>
-            </a>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent p-6 pt-12 text-center z-10">
+                        <h5 class="text-white font-bold text-base md:text-lg tracking-wide group-hover:text-amber-400 transition duration-300 truncate">
+                            {{ $categorys->category_name }}
+                        </h5>
+                        {{-- <p class="text-[10px] text-stone-400 font-medium uppercase tracking-widest mt-1">{{ $categorys->products_count ?? 0 }} Items</p> --}}
+                    </div>
+                </a>
+            </div>
+            @empty
+            <div class="col-span-full text-center bg-stone-50 border border-stone-200 rounded-2xl py-12">
+                <p class="text-stone-400 font-medium">No Category Found</p>
+            </div>
+            @endforelse
         </div>
     </div>
 </section>
