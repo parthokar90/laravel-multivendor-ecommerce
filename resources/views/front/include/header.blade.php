@@ -17,7 +17,7 @@
     </section>
     <section class="bg-white py-4 px-4 border-b border-gray-100 shadow-sm">
         <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-12 gap-4 items-center">
-            
+
             <div class="col-span-1 md:col-span-3 order-1">
                 <a href="{{route('home.page')}}" class="no-underline inline-block">
                     <h3 class="text-2xl font-extrabold text-gray-900 m-0 tracking-tight">
@@ -46,19 +46,19 @@
             <div class="col-span-1 md:col-span-2 order-2 md:order-3">
                 <ul class="flex justify-end items-center space-x-5 text-gray-700">
                     @if(Auth::guard('vendor')->check())
-                        @php $url=route('vendor.dashboard'); @endphp
+                    @php $url=route('vendor.dashboard'); @endphp
                     @elseif(Auth::guard('web')->check())
-                        @php $url=route('customer.dashboard'); @endphp
+                    @php $url=route('customer.dashboard'); @endphp
                     @else
-                        @php $url=route('customer.login'); @endphp
+                    @php $url=route('customer.login'); @endphp
                     @endif
-                    
+
                     <li class="relative group">
                         <a href="{{$url}}" class="hover:text-black transition text-xl">
                             <i class="far fa-user"></i>
                         </a>
                     </li>
-                    
+
                     <li>
                         <a href="{{route('wishlist.index')}}" class="hover:text-black transition text-xl relative inline-block">
                             <i class="far fa-heart"></i>
@@ -67,7 +67,7 @@
                             </span>
                         </a>
                     </li>
-                    
+
                     <li class="relative inline-block text-left" x-data="{ open: false }">
                         <button onclick="toggleCartDropdown()" class="hover:text-black transition text-xl relative inline-block focus:outline-none">
                             <i class="fas fa-shopping-basket"></i>
@@ -75,13 +75,13 @@
                                 {{$cartCount}}
                             </span>
                         </button>
-                        
+
                         <div id="cartDropdown" class="hidden absolute right-0 mt-3 w-80 bg-white border border-gray-200 rounded-lg shadow-xl z-50 p-4">
                             <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-3">
                                 <h5 class="font-bold text-gray-900 text-sm uppercase">{{$cartCount}} items</h5>
                                 <a href="{{route('cart.index')}}" class="text-xs font-semibold text-gray-500 hover:text-black underline uppercase">view cart</a>
                             </div>
-                            
+
                             <ul class="max-h-60 overflow-y-auto space-y-3 divide-y divide-gray-50">
                                 @foreach($cartItem as $key => $item)
                                 <li class="pt-3 first:pt-0">
@@ -103,7 +103,7 @@
                                 </li>
                                 @endforeach
                             </ul>
-                            
+
                             <div class="flex justify-between items-center border-t border-gray-100 pt-3 mt-3 font-bold text-sm text-gray-900 uppercase">
                                 <p>total</p>
                                 <p>{{number_format($subTotal)}}</p>
@@ -121,14 +121,14 @@
     </section>
     <section class="bg-white border-b border-gray-200 relative hidden md:block">
         <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
-            
+
             <div class="relative group py-3">
                 <button class="bg-black text-white text-xs font-bold uppercase tracking-wider px-5 py-3 rounded flex items-center space-x-3 focus:outline-none">
                     <i class="fas fa-bars text-sm"></i>
                     <span>browse categories</span>
                     <i class="fas fa-caret-down"></i>
                 </button>
-                
+
                 <div class="absolute left-0 top-full w-64 bg-white border border-gray-200 rounded-b-lg shadow-xl hidden group-hover:block z-40 transition duration-300">
                     <ul class="divide-y divide-gray-50 py-1">
                         @foreach($latestCategory as $categorys)
@@ -164,7 +164,7 @@
             <div class="flex-1 px-8">
                 <ul class="flex items-center space-x-8 text-sm font-semibold uppercase tracking-wider text-gray-700">
                     <li class="border-b-2 border-black py-4"><a href="{{route('home.page')}}" class="text-black">home</a></li>
-                    
+
                     <li class="relative group py-4">
                         <a href="#!" class="hover:text-black flex items-center gap-1">Account <i class="fas fa-chevron-down text-[10px]"></i></a>
                         <ul class="absolute top-full left-0 w-48 bg-white border border-gray-200 rounded-b shadow-lg hidden group-hover:block z-50 py-1 normal-case font-medium text-gray-600">
@@ -173,33 +173,58 @@
                             <li><a href="{{route('vendor.login')}}" class="block px-4 py-2 hover:bg-gray-50 hover:text-black">Vendor Login</a></li>
                         </ul>
                     </li>
-                    
-                    <li class="relative group/mega py-4 position-static">
-                        <a href="#!" class="hover:text-black flex items-center gap-1">categories <i class="fas fa-chevron-down text-[10px]"></i></a>
-                        <div class="absolute left-0 right-0 top-full w-full bg-white border-t border-b border-gray-200 shadow-xl hidden group-hover/mega:block z-40 p-6 transition duration-300">
-                            <div class="max-w-7xl mx-auto grid grid-cols-12 gap-6">
-                                <div class="col-span-9 grid grid-cols-4 gap-4">
+
+
+                    <li class="static group/mega py-4">
+                        <a href="#!" class="text-gray-700 hover:text-amber-600 font-semibold text-sm transition flex items-center gap-1.5 uppercase tracking-wider">
+                            Categories
+                            <i class="fas fa-chevron-down text-[10px] group-hover/mega:rotate-180 transition-transform duration-300"></i>
+                        </a>
+
+                        <div class="absolute left-0 right-0 top-full w-full bg-white border-t border-b border-stone-200 shadow-xl hidden group-hover/mega:block z-50 p-8 transition duration-300 animate-fadeIn">
+                            <div class="max-w-7xl mx-auto grid grid-cols-12 gap-8">
+
+                                <div class="col-span-12 md:col-span-9 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
                                     @foreach($parentCategory as $parent)
-                                    <div>
-                                        <h4 class="font-bold text-gray-900 border-b border-gray-100 pb-2 mb-2 text-xs uppercase tracking-wider">{{$parent->category_name}}</h4>
-                                        <ul class="space-y-1.5 normal-case font-medium text-gray-600 text-sm">
+                                    <div class="space-y-3">
+                                        <h4 class="font-bold text-stone-900 border-b border-stone-100 pb-2 text-xs uppercase tracking-widest text-left">
+
+                                            <a href="{{ route('category.product', ['id' => $parent->id, 'slug' => $parent->slug]) }}"
+                                                class="hover:text-amber-600 hover:pl-1 transition-all duration-200 block text-stone-600">
+                                                {{ $parent->category_name }}
+                                            </a>
+                                        </h4>
+
+                                        <ul class="space-y-2 normal-case font-medium text-stone-600 text-sm text-left">
                                             @foreach($parent->subCategory as $child)
-                                            <li><a href="{{route('category.product',array('id'=>$child->id,'slug'=>$child->slug))}}" class="hover:text-black transition">{{$child->category_name}}</a></li>
+                                            <li>
+                                                <a href="{{ route('category.product', ['id' => $child->id, 'slug' => $child->slug]) }}"
+                                                    class="hover:text-amber-600 hover:pl-1 transition-all duration-200 block text-stone-600">
+                                                    {{ $child->category_name }}
+                                                </a>
+                                            </li>
                                             @endforeach
                                         </ul>
                                     </div>
                                     @endforeach
                                 </div>
-                                <div class="col-span-3 border-l border-gray-100 pl-6 flex items-center justify-center">
-                                    <div class="w-full">
-                                        <a href="#" class="block overflow-hidden rounded hover:opacity-90 transition">
-                                            <img src="{{asset('front/assets/images/home1/advertise.png')}}" alt="Advertise" class="w-full h-auto object-cover"/>
+
+                                <div class="hidden md:col-span-3 border-l border-stone-100 pl-8 md:flex items-center justify-center">
+                                    <div class="w-full h-full min-h-[180px] bg-stone-50 rounded-xl overflow-hidden relative group/banner border border-stone-200">
+                                        <a href="#" class="block w-full h-full">
+                                            <img src="{{ asset('front/assets/images/home1/advertise.png') }}"
+                                                alt="Advertise"
+                                                class="w-full h-full object-cover group-hover/banner:scale-105 transition duration-500"
+                                                onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center p-4 text-center text-xs font-bold uppercase tracking-wider text-stone-400\'>Premium Quality<br>Collection 2026</div>';" />
                                         </a>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </li>
+
+
                     <li class="py-4"><a href="#" class="hover:text-black">blog</a></li>
                     <li class="py-4"><a href="{{route('contact.page')}}" class="hover:text-black">contact</a></li>
                 </ul>
@@ -231,11 +256,11 @@
                         <i class="far fa-times-circle"></i>
                     </button>
                 </div>
-                
+
                 <ul class="space-y-4 text-sm font-bold uppercase tracking-wide text-gray-700">
                     <li class="border-b border-gray-50 pb-2"><a href="{{route('home.page')}}" class="text-black">home</a></li>
                     <li class="border-b border-gray-50 pb-2"><a href="#" class="hover:text-black">about</a></li>
-                    
+
                     <li class="border-b border-gray-50 pb-2">
                         <p class="mb-2 text-gray-400 text-xs">Account</p>
                         <ul class="pl-4 space-y-2 normal-case font-medium text-gray-600">
@@ -243,34 +268,18 @@
                             <li><a href="{{route('vendor.login')}}" class="hover:text-black">Vendor Login</a></li>
                         </ul>
                     </li>
-
-                    <li class="border-b border-gray-50 pb-2">
-                        <p class="mb-2 text-gray-400 text-xs">Categories</p>
-                        <ul class="pl-2 space-y-3 normal-case font-semibold text-gray-700">
-                            @foreach($parentCategory as $parent)
-                            <li>
-                                <span class="block text-xs uppercase tracking-wider text-gray-900 mb-1">{{$parent->category_name}}</span>
-                                <ul class="pl-3 border-l-2 border-gray-100 space-y-1.5 font-medium text-gray-500 text-sm">
-                                    @foreach($parent->subCategory as $child)
-                                    <li><a href="{{route('category.product',array('id'=>$child->id,'slug'=>$child->slug))}}" class="hover:text-black">{{$child->category_name}}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </li>
                     <li class="border-b border-gray-50 pb-2"><a href="!#" class="hover:text-black">blog</a></li>
                     <li><a href="{{route('contact.page')}}" class="hover:text-black">contact</a></li>
                 </ul>
             </div>
-            
+
             <div class="border-t border-gray-100 pt-4 mt-6">
                 <p class="text-xs text-gray-400 font-bold uppercase">Support Line</p>
                 <p class="text-base font-bold text-black mt-1">+8801765456090</p>
             </div>
         </div>
     </div>
-    </header>
+</header>
 
 <script>
     function toggleCartDropdown() {
@@ -292,7 +301,7 @@
     window.addEventListener('click', function(e) {
         const cartDropdown = document.getElementById('cartDropdown');
         if (!e.target.closest('#cartDropdown') && !e.target.closest('button[onclick="toggleCartDropdown()"]')) {
-            if(cartDropdown) cartDropdown.classList.add('hidden');
+            if (cartDropdown) cartDropdown.classList.add('hidden');
         }
     });
 </script>

@@ -6,7 +6,7 @@
 
 
 <section id="hero-slider" class="relative bg-stone-950 overflow-hidden">
-    
+
     <div class="slide-item active-slide relative min-h-[500px] md:min-h-[600px] flex items-center bg-cover bg-center transition-all duration-1000 opacity-100 block" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80');">
         <div class="absolute inset-0 bg-stone-950/60"></div>
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center md:text-left text-white py-20">
@@ -55,42 +55,6 @@
         <button onclick="goToSlide(2)" class="slider-dot w-3 h-3 rounded-full bg-white/40 transition-all duration-300" aria-label="Slide 3"></button>
     </div>
 </section>
-
-<section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-xl mx-auto mb-12 space-y-2">
-            <h3 class="text-3xl font-extrabold text-stone-900 tracking-tight">Trending Categories</h3>
-            <p class="text-sm text-stone-500">Discover handpicked premium assortments curated based on this season's popular waves.</p>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            @forelse ($allCategory->take(8) as $categorys)
-            <div class="h-full">
-                <a href="{{ route('category.product', ['id' => $categorys->id, 'slug' => $categorys->slug ?? Str::slug($categorys->category_name)]) }}" class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-gradient-to-br from-stone-900 to-stone-950 flex flex-col items-center justify-between p-6 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500 ease-in-out">
-                    
-                    <div class="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:14px_24px]"></div>
-                    
-                    <div class="my-auto w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white text-3xl font-black uppercase tracking-wider shadow-inner group-hover:bg-amber-500 group-hover:text-stone-950 group-hover:scale-110 transition duration-500 border border-white/10">
-                        {{ substr($categorys->category_name, 0, 1) }}
-                    </div>
-
-                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent p-6 pt-12 text-center z-10">
-                        <h5 class="text-white font-bold text-base md:text-lg tracking-wide group-hover:text-amber-400 transition duration-300 truncate">
-                            {{ $categorys->category_name }}
-                        </h5>
-                        {{-- <p class="text-[10px] text-stone-400 font-medium uppercase tracking-widest mt-1">{{ $categorys->products_count ?? 0 }} Items</p> --}}
-                    </div>
-                </a>
-            </div>
-            @empty
-            <div class="col-span-full text-center bg-stone-50 border border-stone-200 rounded-2xl py-12">
-                <p class="text-stone-400 font-medium">No Category Found</p>
-            </div>
-            @endforelse
-        </div>
-    </div>
-</section>
-
 
 <section class="py-16 bg-stone-50 border-t border-stone-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -183,6 +147,40 @@
         </div>
         @endfor
     </div>
+    </div>
+</section>
+
+<section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-xl mx-auto mb-8 space-y-1">
+            <h3 class="text-2xl font-extrabold text-stone-900 tracking-tight">Trending Categories</h3>
+            <p class="text-xs text-stone-500">Discover handpicked premium assortments curated based on this season's popular waves.</p>
+        </div>
+
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
+            @forelse ($allCategory->take(12) as $categorys) {{-- ছোট করায় এখন ৮টার বদলে ১২টাও সুন্দর দেখাবে --}}
+            <div class="h-full">
+                <a href="{{ route('category.product', ['id' => $categorys->id, 'slug' => $categorys->slug ?? Str::slug($categorys->category_name)]) }}" class="group relative rounded-xl overflow-hidden aspect-square bg-gradient-to-br from-stone-900 to-stone-950 flex flex-col items-center justify-between p-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-in-out">
+
+                    <div class="absolute inset-0 opacity-5 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:12px_20px]"></div>
+
+                    <div class="my-auto w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white text-xl font-black uppercase tracking-wider shadow-inner group-hover:bg-amber-500 group-hover:text-stone-950 group-hover:scale-105 transition duration-300 border border-white/10">
+                        {{ substr($categorys->category_name, 0, 1) }}
+                    </div>
+
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-950 via-stone-950/50 to-transparent p-3 pt-8 text-center z-10">
+                        <h5 class="text-white font-semibold text-xs md:text-sm tracking-wide group-hover:text-amber-400 transition duration-300 truncate px-1">
+                            {{ $categorys->category_name }}
+                        </h5>
+                    </div>
+                </a>
+            </div>
+            @empty
+            <div class="col-span-full text-center bg-stone-50 border border-stone-200 rounded-xl py-8">
+                <p class="text-stone-400 text-xs font-medium">No Category Found</p>
+            </div>
+            @endforelse
+        </div>
     </div>
 </section>
 
@@ -352,17 +350,17 @@
         slides.forEach((slide, i) => {
             slide.classList.remove('opacity-100', 'block');
             slide.classList.add('opacity-0', 'hidden');
-            
+
             dots[i].classList.remove('bg-white', 'w-6');
             dots[i].classList.add('bg-white/40');
         });
 
         slides[index].classList.remove('opacity-0', 'hidden');
         slides[index].classList.add('opacity-100', 'block');
-        
+
         dots[index].classList.remove('bg-white/40');
         dots[index].classList.add('bg-white', 'w-6');
-        
+
         currentSlide = index;
     }
 
@@ -373,11 +371,11 @@
 
     function goToSlide(index) {
         showSlide(index);
-        resetTimer(); 
+        resetTimer();
     }
 
     function startTimer() {
-        slideInterval = setInterval(nextSlide, 5000); 
+        slideInterval = setInterval(nextSlide, 5000);
     }
 
     function resetTimer() {
