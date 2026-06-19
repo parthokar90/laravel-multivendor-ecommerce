@@ -25,7 +25,6 @@ class OrderController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
         } else {
-            // Check if the guest email already exists in the users table
             $validator = Validator::make($request->all(), [
                 'name'    => 'required|string|max:255',
                 'email'   => 'required|email|max:255|unique:users,email',
@@ -59,7 +58,6 @@ class OrderController extends Controller
             }
         }
 
-        // If Guest account creation was successful or user is already logged-in, start/continue transaction for Order
         if (!Auth::check()) {
             return back()->with('error', 'Authentication failed.');
         }
@@ -102,7 +100,6 @@ class OrderController extends Controller
             return redirect()->route('customer.dashboard')
                 ->with('success', 'Order placed successfully!');
         } catch (\Exception $e) {
-            // Discard all queries if any error occurs during order placement
             DB::rollBack();
             return back()->with('error', 'Failed to place order. Please try again.')->withInput();
         }

@@ -2,8 +2,6 @@
 
 namespace App\Models\vendor;
 
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,6 +13,28 @@ class Vendor extends Authenticatable
     use Notifiable;
 
     protected $guard = 'vendor';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'mobile',
+        'image',
+        'address',
+        'country_id',
+        'role',
+        'city',
+        'zip_code',
+        'gender',
+        'created_by',
+        'status',
+    ];
 
     /*
     |--------------------------------------------------------------------------

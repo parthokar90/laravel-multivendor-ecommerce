@@ -18,6 +18,17 @@ class Shop extends Model
     public const STATUS_INACTIVE = 0;
     public const STATUS_ACTIVE   = 1;
 
+    protected $fillable = [
+        'shop_name',
+        'logo',
+        'shop_banner',
+        'shop_slug',
+        'shop_address',
+        'vendor_id',
+        'created_by',
+        'status',
+    ];
+
     //shop product
     public function products()
     {
