@@ -99,7 +99,7 @@
 
                         @if(count($cartItems) > 0)
                         <div class="bg-stone-50 border-t border-stone-200 px-6 py-4 text-right">
-                            <button type="submit" class="inline-flex items-center justify-center bg-stone-900 hover:bg-amber-600 text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-lg shadow-sm transition duration-300">
+                            <button type="submit" class="bg-stone-900 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm uppercase tracking-wider">
                                 Update Cart
                             </button>
                         </div>
@@ -136,7 +136,7 @@
 
                     <div class="px-6 pb-6">
                         <a href="{{ route('checkout.page') }}"
-                            class="w-full inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold uppercase tracking-wider py-3 px-6 rounded-lg shadow-sm transition duration-300 text-center">
+                            class="bg-stone-900 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm uppercase tracking-wider">
                             Proceed to Checkout
                         </a>
                     </div>

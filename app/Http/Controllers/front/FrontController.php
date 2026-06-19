@@ -66,12 +66,23 @@ class FrontController extends Controller
    */
   public function search(SearchRequest $request): View
   {
-    $products = $request->filled('cat_id')
-      ? ProductCategory::find($request->cat_id)?->products()->active()->get() ?? collect()
-      : Product::active()
-      ->where('product_name', 'like', "%{$request->search}%")
-      ->select('id', 'product_name', 'image', 'product_slug')
-      ->get();
+    if ($request->filled('cat_id')) {
+      // Fetch all product-category rows for this category and eager load active products
+      $products = ProductCategory::where('category_id', $request->cat_id)
+        ->whereHas('product', function ($query) {
+          $query->active(); 
+        })
+        ->with(['product' => function ($query) {
+          $query->select('id', 'product_name', 'image', 'product_slug');
+        }])
+        ->get()
+        ->pluck('product'); 
+    } else {
+      $products = Product::active()
+        ->where('product_name', 'like', "%{$request->search}%")
+        ->select('id', 'product_name', 'image', 'product_slug')
+        ->get();
+    }
 
     return view('front.product.search', compact('products'));
   }
@@ -81,7 +92,7 @@ class FrontController extends Controller
    */
   public function categoryProduct($id)
   {
-    $category = ProductCategory::where('category_id',$id)->get();
+    $category = ProductCategory::where('category_id', $id)->get();
     return view('front.product.categoryProduct', compact('category'));
   }
 

@@ -86,14 +86,14 @@
                                     class="w-full bg-white border border-stone-300 text-stone-900 rounded-lg px-3 py-2.5 text-center focus:ring-1 focus:ring-stone-900 focus:border-stone-900 outline-none transition text-sm font-semibold">
                             </div>
 
-                            <div class="flex-1 min-w-[160px]">
-                                <button type="submit" class="w-full bg-stone-900 text-white text-sm font-semibold px-6 py-3 rounded-lg hover:bg-amber-600 transition duration-300 shadow-sm uppercase tracking-wider">
+                            <div class="flex-none">
+                                <button type="submit" class="bg-stone-900 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm uppercase tracking-wider">
                                     Add to Cart
                                 </button>
                             </div>
 
                             <div>
-                                <a href="{{ route('add.wishlist', $product->id) }}" class="inline-flex items-center justify-center p-3 rounded-lg border border-rose-200 text-rose-500 hover:bg-rose-50 transition duration-200" title="Add to Wishlist">
+                                <a href="{{ route('add.wishlist', $product->id) }}" class="inline-flex items-center justify-center p-2.5 rounded-lg border border-rose-200 text-rose-500 hover:bg-rose-50 transition duration-200" title="Add to Wishlist">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
                                     </svg>

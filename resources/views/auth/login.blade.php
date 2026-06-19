@@ -31,14 +31,19 @@
                 <p class="text-sm text-stone-500">Login if you are a returning customer.</p>
             </div>
 
-            <div class="bg-stone-50 border border-stone-200 rounded-xl p-4 text-sm text-stone-600 space-y-1">
+            <div class="bg-stone-50 border border-stone-200 rounded-xl p-4 text-sm text-stone-600 space-y-2">
                 <div class="flex justify-between">
                     <span class="font-medium text-stone-900">Demo Email:</span>
-                    <span class="font-mono bg-white px-1.5 py-0.5 rounded border border-stone-200 select-all">customer@test.com</span>
+                    <span class="font-mono bg-white px-1.5 py-0.5 rounded border border-stone-200 select-all">customer@email.com</span>
                 </div>
                 <div class="flex justify-between">
                     <span class="font-medium text-stone-900">Demo Password:</span>
-                    <span class="font-mono bg-white px-1.5 py-0.5 rounded border border-stone-200 select-all">123456</span>
+                    <span class="font-mono bg-white px-1.5 py-0.5 rounded border border-stone-200 select-all">12345678</span>
+                </div>
+                <div class="pt-1">
+                    <button type="button" onclick="fillDemoCredentials()" class="w-full bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-bold uppercase tracking-wider py-1.5 px-3 rounded-lg transition">
+                        Use Demo Credentials
+                    </button>
                 </div>
             </div>
 
@@ -57,6 +62,7 @@
                 <div class="space-y-1.5">
                     <label class="text-xs font-semibold uppercase tracking-wider text-stone-600">Email Address</label>
                     <input type="email"
+                        id="email"
                         name="email"
                         value="{{ old('email') }}"
                         placeholder="e.g., alex@example.com"
@@ -69,6 +75,7 @@
                 <div class="space-y-1.5">
                     <label class="text-xs font-semibold uppercase tracking-wider text-stone-600">Password</label>
                     <input type="password"
+                        id="password"
                         name="password"
                         placeholder="••••••••"
                         class="w-full bg-white border @error('password') border-rose-500 focus:ring-rose-500/20 focus:border-rose-500 @else border-stone-200 focus:ring-amber-500/20 focus:border-amber-500 @enderror rounded-xl px-4 py-3 text-sm transition outline-none focus:ring-4">
@@ -103,5 +110,17 @@
 
     </div>
 </section>
+
+<script>
+    function fillDemoCredentials() {
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+
+        if (emailInput && passwordInput) {
+            emailInput.value = 'customer@email.com';
+            passwordInput.value = '12345678';
+        }
+    }
+</script>
 
 @endsection

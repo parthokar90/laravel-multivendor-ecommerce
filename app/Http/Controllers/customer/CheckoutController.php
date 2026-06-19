@@ -10,7 +10,13 @@ class CheckoutController extends Controller
     public function index()
     {
         $cart = session()->get('cart', []);
+
+        if (count($cart) == 0) {
+            return view('front.error.cartEmpty');
+        }
+
         $subTotal = 0;
+
         foreach ($cart as $item) {
             $subTotal += $item['price'] * $item['quantity'];
         }

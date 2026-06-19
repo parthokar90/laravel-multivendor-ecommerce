@@ -15,7 +15,7 @@ class CustomerSeeder extends Seeder
         User::create([
             'first_name' => 'Demo',
             'last_name'  => 'Customer',
-            'email'      => 'customer@test.com',
+            'email'      => 'customer@email.com',
             'password'   => Hash::make('12345678'),
             'mobile'     => '01000000000',
             'status'     => 1,

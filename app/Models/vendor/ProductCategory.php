@@ -11,12 +11,14 @@ use App\Models\vendor\ProductCategory;
 class ProductCategory extends Model
 {
     //this function show all product from category wise
-    public function product(){
-        return $this->belongsTo(Product::class,'product_id');
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     //this function show category name
-    public function categoryName(){
-        return $this->belongsTo(Category::class,'category_id');
+    public function categoryName()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }
