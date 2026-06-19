@@ -79,8 +79,9 @@ class FrontController extends Controller
   /**
    * Display products belonging to a category.
    */
-  public function categoryProduct(ProductCategory $category): View
+  public function categoryProduct($id)
   {
+    $category = ProductCategory::where('category_id',$id)->get();
     return view('front.product.categoryProduct', compact('category'));
   }
 

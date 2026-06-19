@@ -109,47 +109,6 @@
     </div>
 </section>
 
-
-<section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-xl mx-auto mb-12 space-y-2">
-            <h3 class="text-3xl font-extrabold text-stone-900 tracking-tight">Trending Products</h3>
-            <p class="text-sm text-stone-500">Have a look at what everyone else is buying right now.</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            @for ($i = 1; $i <= 4; $i++)
-                <div class="group bg-white rounded-xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-md transition duration-300 flex flex-col justify-between">
-                <div class="relative bg-stone-50 overflow-hidden aspect-square flex items-center justify-center p-4">
-                    <span class="absolute top-3 left-3 bg-rose-500 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full z-10">Trending</span>
-                    <a href="#" class="w-full h-full block">
-                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80"
-                            class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition duration-500"
-                            alt="Trending Product">
-                    </a>
-                </div>
-
-                <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
-                    <div class="space-y-1.5 text-center">
-                        <a href="#" class="block">
-                            <h5 class="text-sm font-semibold text-stone-900 group-hover:text-amber-600 transition line-clamp-2 h-10 leading-tight">
-                                Wireless Ultra Premium Noise Cancelling Headphones
-                            </h5>
-                        </a>
-                        <p class="text-base font-bold text-stone-900">৳ ১৫,৫০০</p>
-                    </div>
-                    <div class="pt-2">
-                        <a href="#" class="w-full inline-flex items-center justify-center bg-stone-900 hover:bg-amber-600 text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-lg shadow-sm transition duration-300">
-                            View Details
-                        </a>
-                    </div>
-                </div>
-        </div>
-        @endfor
-    </div>
-    </div>
-</section>
-
 <section class="py-12 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-xl mx-auto mb-8 space-y-1">
@@ -158,7 +117,7 @@
         </div>
 
         <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
-            @forelse ($allCategory->take(12) as $categorys) {{-- ছোট করায় এখন ৮টার বদলে ১২টাও সুন্দর দেখাবে --}}
+            @forelse ($allCategory->take(12) as $categorys) 
             <div class="h-full">
                 <a href="{{ route('category.product', ['id' => $categorys->id, 'slug' => $categorys->slug ?? Str::slug($categorys->category_name)]) }}" class="group relative rounded-xl overflow-hidden aspect-square bg-gradient-to-br from-stone-900 to-stone-950 flex flex-col items-center justify-between p-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-in-out">
 
@@ -238,6 +197,45 @@
     </div>
 </section>
 
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-xl mx-auto mb-12 space-y-2">
+            <h3 class="text-3xl font-extrabold text-stone-900 tracking-tight">Trending Products</h3>
+            <p class="text-sm text-stone-500">Have a look at what everyone else is buying right now.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            @for ($i = 1; $i <= 4; $i++)
+                <div class="group bg-white rounded-xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-md transition duration-300 flex flex-col justify-between">
+                <div class="relative bg-stone-50 overflow-hidden aspect-square flex items-center justify-center p-4">
+                    <span class="absolute top-3 left-3 bg-rose-500 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full z-10">Trending</span>
+                    <a href="#" class="w-full h-full block">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80"
+                            class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition duration-500"
+                            alt="Trending Product">
+                    </a>
+                </div>
+
+                <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+                    <div class="space-y-1.5 text-center">
+                        <a href="#" class="block">
+                            <h5 class="text-sm font-semibold text-stone-900 group-hover:text-amber-600 transition line-clamp-2 h-10 leading-tight">
+                                Wireless Ultra Premium Noise Cancelling Headphones
+                            </h5>
+                        </a>
+                        <p class="text-base font-bold text-stone-900">৳ ১৫,৫০০</p>
+                    </div>
+                    <div class="pt-2">
+                        <a href="#" class="w-full inline-flex items-center justify-center bg-stone-900 hover:bg-amber-600 text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-lg shadow-sm transition duration-300">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+        </div>
+        @endfor
+    </div>
+    </div>
+</section>
 
 <section class="py-16 bg-white border-t border-stone-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
