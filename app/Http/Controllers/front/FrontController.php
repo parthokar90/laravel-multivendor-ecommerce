@@ -25,7 +25,7 @@ class FrontController extends Controller
       'shop'     => $this->activeShop(),
       'brand'    => $this->activeBrand(),
       'slider'   => Slider::active()->latest()->get(),
-      'featured' => Product::active()->featured()->latest()->get(),
+      'featured' => Product::active()->featured()->latest()->limit(8)->get(),
       'blog'     => Blog::active()->latest()->limit(3)->get(),
     ]);
   }
@@ -53,7 +53,6 @@ class FrontController extends Controller
    */
   public function productSingle(int $id, string $slug): View
   {
-
     $product = Product::findOrFail($id);
 
     $attributeType = $product->productAttributeType($product->id);

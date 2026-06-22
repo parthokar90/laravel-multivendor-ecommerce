@@ -1,112 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('admin.layout.auth')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
+@section('title', 'Admin Login')
 
-        .login-card {
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-            border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
+@section('content')
+<div class="w-full max-w-md">
+    <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-white/10">
 
-        .login-header {
-            background: #fff;
-            padding: 30px;
-            text-align: center;
-        }
+        {{-- Header --}}
+        <div class="bg-white px-8 pt-8 pb-4 text-center">
+            <h2 class="text-3xl font-bold tracking-tight text-stone-800">Admin Login</h2>
+            <p class="text-sm text-stone-400 mt-1">Sign in to access your dashboard</p>
+        </div>
 
-        .login-header h2 {
-            color: #333;
-            font-weight: 600;
-            margin: 0;
-        }
+        {{-- Body --}}
+        <div class="bg-white px-8 pb-8 space-y-6">
 
-        .login-body {
-            background: #fff;
-            padding: 30px;
-        }
-
-        .form-control {
-            border-radius: 25px;
-            padding: 12px 20px;
-            margin-bottom: 20px;
-        }
-
-        .btn-login {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 25px;
-            width: 100%;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .forgot-password {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .forgot-password a {
-            color: #667eea;
-            text-decoration: none;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <div class="login-card">
-            <div class="login-header">
-                <h2>Admin Login</h2>
+            {{-- Clickable Demo Admin Login Box --}}
+            <div onclick="fillDemoCredentials()"
+                class="bg-indigo-50/60 border border-indigo-100 hover:border-indigo-300 rounded-xl p-4 text-center cursor-pointer select-none group transition duration-200">
+                <p class="text-xs font-semibold uppercase tracking-wider text-indigo-600 group-hover:text-indigo-700">
+                    <i class="fas fa-magic mr-1 animate-pulse"></i> Demo Admin Login
+                </p>
+                <p class="text-sm text-stone-600 mt-1 font-medium">Email: <span class="text-stone-900 underline decoration-indigo-200" id="demo-email">admin@email.com</span></p>
+                <p class="text-sm text-stone-600 font-medium">Password: <span class="text-stone-900 underline decoration-indigo-200" id="demo-pass">12345678</span></p>
+                <span class="text-[10px] text-indigo-400 font-medium block mt-1.5 uppercase tracking-wide opacity-80 group-hover:opacity-100">Click box to autofill</span>
             </div>
-            <div class="login-body">
 
-                <div class="alert alert-info text-center mb-3">
-                    <b>Demo Admin Login</b><br>
-                    Email: admin@email.com<br>
-                    Password: 12345678
+            {{-- Form --}}
+            <form method="POST" action="{{ route('admin.login') }}" class="space-y-4">
+                @csrf
+
+                {{-- Email Input --}}
+                <div class="space-y-1">
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-stone-400">
+                            <i class="far fa-envelope"></i>
+                        </span>
+                        <input type="email" name="email" id="admin-email" value="{{ old('email') }}" placeholder="Email Address" required
+                            class="w-full bg-stone-50 border @error('email') border-rose-500 focus:ring-rose-500/20 focus:border-rose-500 @else border-stone-200 focus:ring-indigo-500/20 focus:border-indigo-500 @enderror rounded-full pl-11 pr-5 py-3 text-sm transition outline-none focus:ring-4">
+                    </div>
+                    @error('email')
+                    <p class="text-xs font-medium text-rose-600 pl-3 mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <form method="POST" action="{{ route('admin.login') }}">
-                    @csrf
-
-                    <div class="form-group">
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                            placeholder="Email" value="{{ old('email') }}" required>
+                {{-- Password Input --}}
+                <div class="space-y-1">
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-stone-400">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        <input type="password" name="password" id="admin-password" placeholder="Password" required
+                            class="w-full bg-stone-50 border @error('password') border-rose-500 focus:ring-rose-500/20 focus:border-rose-500 @else border-stone-200 focus:ring-indigo-500/20 focus:border-indigo-500 @enderror rounded-full pl-11 pr-5 py-3 text-sm transition outline-none focus:ring-4">
                     </div>
+                    @error('password')
+                    <p class="text-xs font-medium text-rose-600 pl-3 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                    <div class="form-group">
-                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                            placeholder="Password" required>
-                    </div>
+                {{-- Submit Button --}}
+                <div class="pt-2">
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-[#667eea] to-[#764ba2] hover:shadow-lg hover:shadow-indigo-500/30 text-white font-bold uppercase tracking-wider py-3 px-5 rounded-full shadow transition transform hover:-translate-y-0.5 active:translate-y-0 duration-150">
+                        Login
+                    </button>
+                </div>
+            </form>
 
-                    <button type="submit" class="btn btn-login">Login</button>
-                </form>
-
-            </div>
         </div>
     </div>
-</body>
+</div>
+@endsection
 
-</html>
+@push('js')
+<script>
+    function fillDemoCredentials() {
+        // Fetch values directly from the UI text
+        const email = document.getElementById('demo-email').innerText;
+        const pass = document.getElementById('demo-pass').innerText;
+
+        // Push values to form inputs
+        document.getElementById('admin-email').value = email;
+        document.getElementById('admin-password').value = pass;
+    }
+</script>
+@endpush

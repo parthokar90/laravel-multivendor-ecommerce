@@ -4,107 +4,72 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\customer\Customer;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\File;
+use App\Services\Admin\CustomerService;
+use App\Http\Requests\Admin\CustomerStoreRequest;
+use App\Http\Requests\Admin\CustomerUpdateRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class CustomerController extends Controller
 {
+    protected CustomerService $customerService;
 
-    public function __construct()
+    public function __construct(CustomerService $customerService)
     {
         $this->middleware('auth:admin');
-    }
-    public function index()
-    {
-        $customers = Customer::latest()->get();
-        return view('admin.customer.index', compact('customers'));
+        $this->customerService = $customerService;
     }
 
-    public function create()
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            return $this->customerService->getDataTable();
+        }
+        return view('admin.customer.index');
+    }
+
+    public function create(): View
     {
         return view('admin.customer.create');
     }
 
-    public function store(Request $request)
+    public function store(CustomerStoreRequest $request): RedirectResponse
     {
-        $request->validate([
-            'first_name' => 'required',
-            'email' => 'required|email|unique:customers',
-            'password' => 'required|min:6',
-            'mobile' => 'required',
-        ]);
+        $this->customerService->storeCustomer(
+            $request->validated(), 
+            $request->file('image')
+        );
 
-        $customer = new Customer();
-
-        $customer->first_name = $request->first_name;
-        $customer->last_name  = $request->last_name;
-        $customer->email      = $request->email;
-        $customer->password   = Hash::make($request->password);
-        $customer->mobile     = $request->mobile;
-        $customer->address    = $request->address;
-        $customer->status     = $request->status;
-
-        // image upload
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $name = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/customer'), $name);
-            $customer->image = $name;
-        }
-
-        $customer->save();
-
-        return redirect()->route('customers.index');
+        return redirect()
+            ->route('customers.index')
+            ->with('success', 'Customer created and image synced to Supabase.');
     }
 
-    public function edit($id)
+    public function edit(int $id): View
     {
-        $customer = Customer::findOrFail($id);
+        $customer = $this->customerService->getCustomer($id);
         return view('admin.customer.edit', compact('customer'));
     }
 
-    public function update(Request $request, $id)
+    public function update(CustomerUpdateRequest $request, int $id): RedirectResponse
     {
-        $customer = Customer::findOrFail($id);
+        $this->customerService->updateCustomer(
+            $id, 
+            $request->validated(), 
+            $request->file('image')
+        );
 
-        $customer->first_name = $request->first_name;
-        $customer->last_name  = $request->last_name;
-        $customer->email      = $request->email;
-        $customer->mobile     = $request->mobile;
-        $customer->address    = $request->address;
-        $customer->status     = $request->status;
-
-        if ($request->password) {
-            $customer->password = Hash::make($request->password);
-        }
-
-        if ($request->hasFile('image')) {
-            if ($customer->image && file_exists(public_path('uploads/customer/' . $customer->image))) {
-                unlink(public_path('uploads/customer/' . $customer->image));
-            }
-
-            $file = $request->file('image');
-            $name = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/customer'), $name);
-            $customer->image = $name;
-        }
-
-        $customer->save();
-
-        return redirect()->route('customers.index');
+        return redirect()
+            ->route('customers.index')
+            ->with('success', 'Customer updated successfully.');
     }
 
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
-        $customer = Customer::findOrFail($id);
-
-        if ($customer->image && file_exists(public_path('uploads/customer/' . $customer->image))) {
-            unlink(public_path('uploads/customer/' . $customer->image));
-        }
-
-        $customer->delete();
-
-        return redirect()->route('customers.index');
+        $this->customerService->deleteCustomer($id);
+        
+        return redirect()
+            ->route('customers.index')
+            ->with('success', 'Customer and associated cloud image deleted.');
     }
 }

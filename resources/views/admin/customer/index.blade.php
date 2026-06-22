@@ -1,78 +1,95 @@
 @extends('admin.layout.master')
 
-@section('title') Customers @endsection
+@section('title') Customer List @endsection
 
 @section('content')
+
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12">
-
-            <div class="card">
+        <div class="col-xl-12">
+            <div class="breadcrumb-holder">
+                <h1 class="main-title float-left">Dashboard</h1>
+                <ol class="breadcrumb float-right">
+                    <li class="breadcrumb-item">Home</li>
+                    <li class="breadcrumb-item active">Customer List</li>
+                </ol>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="card mb-3">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="card-title">Customer List</h3>
-
-                    <a href="{{ route('customers.create') }}" class="btn btn-primary">
+                    <a href="{{ route('customers.create') }}" class="btn btn-primary btn-sm">
                         <i class="fas fa-plus"></i> Add Customer
                     </a>
                 </div>
-
                 <div class="card-body">
-                    <table id="customers-table" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Mobile</th>
-                                <th>Status</th>
-                                <th>Created At</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach($customers as $key=> $customer)
-                            <tr>
-                                <td>{{ ++$key }}</td>
-                                <td><img src="{{$customer->image}}"></td>
-                                <td>{{ $customer->first_name }} {{ $customer->last_name }}</td>
-                                <td>{{ $customer->email }}</td>
-                                <td>{{ $customer->mobile }}</td>
-                                <td>
-                                    @if($customer->status == 1)
-                                    <span class="badge badge-success">Active</span>
-                                    @else
-                                    <span class="badge badge-danger">Inactive</span>
-                                    @endif
-                                </td>
-                                <td>{{ $customer->created_at->format('Y-m-d H:i') }}</td>
-                                <td>
-                                    <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-sm btn-primary">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-
-                                    <form action="{{ route('customers.destroy', $customer->id) }}" method="POST" style="display:inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button type="submit"
-                                            onclick="return confirm('Are you sure?')"
-                                            class="btn btn-sm btn-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-
-                    </table>
+                    @include('admin.include.message')
+                    <div class="table-responsive">
+                        <table class="datatable table table-bordered table-hover display">
+                            <thead>
+                                <tr>
+                                    <th>Sl</th>
+                                    <th>Customer Name</th>
+                                    <th>Image</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-@endsection
 
+<script type="text/javascript">
+    $(function() {
+        var table = $('.datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('customers.index') }}",
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    orderable: false, 
+                    searchable: false 
+                },
+                {
+                    data: 'first_name',
+                    name: 'first_name'
+                },
+                {
+                    data: 'image',
+                    name: 'image'
+                },
+                {
+                    data: 'mobile',
+                    name: 'mobile'
+                },
+                {
+                    data: 'email',
+                    name: 'email'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false,
+                    responsive: true
+                },
+            ]
+        });
+    });
+</script>
+@endsection

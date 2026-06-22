@@ -33,7 +33,7 @@
 
 <body class="font-jost antialiased bg-gray-50 text-gray-900">
     @include('front.include.header')
-    <div class="top-to fixed bottom-6 right-6 z-50">
+    <div class="top-to fixed bottom-6 right-6 z-50 hidden">
         <button class="bg-black text-white p-3 rounded-full hover:bg-gray-800 transition duration-300 shadow-lg">
             <i class="fas fa-long-arrow-alt-up"></i>
         </button>
@@ -83,6 +83,27 @@
         });
     </script>
     @endif
+
+    <script>
+        const scrollTopBtn = document.querySelector('.top-to button');
+
+        // Show button when user scrolls down
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.parentElement.classList.remove('hidden');
+            } else {
+                scrollTopBtn.parentElement.classList.add('hidden');
+            }
+        });
+
+        // Scroll to top on click
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 
     <div id="exampleModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-50 items-center justify-center p-4">
         <div class="bg-white rounded-lg max-w-4xl w-full relative shadow-xl overflow-hidden">

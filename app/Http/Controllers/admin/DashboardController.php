@@ -3,18 +3,23 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Services\Admin\DashboardService;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
+    protected DashboardService $dashboardService;
 
-    public function __construct()
+    public function __construct(DashboardService $dashboardService)
     {
         $this->middleware('auth:admin');
+        $this->dashboardService = $dashboardService;
     }
 
-    //admin dashboard
-    public function index(){
-        return view('admin.dashboard');
+    public function index(): View
+    {
+        $data = $this->dashboardService->getDashboardData();
+
+        return view('admin.dashboard', $data);
     }
 }

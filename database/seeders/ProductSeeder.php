@@ -67,6 +67,7 @@ class ProductSeeder extends Seeder
                 'regular_price' => $price,
                 'sale_price' => $price - rand(500, 4000),
                 'quantity' => rand(10, 100),
+                'is_featured'       => rand(0, 1),
                 'created_by' => 1,
                 'status' => 1,
             ]);

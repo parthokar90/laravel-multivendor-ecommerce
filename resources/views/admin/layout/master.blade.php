@@ -19,18 +19,18 @@
     <div id="main">
 
         <!-- top bar navigation -->
-          @include('admin.include.top_bar')
+        @include('admin.include.top_bar')
         <!-- End top bar Navigation -->
 
         <!-- Left Sidebar -->
-          @include('admin.include.sidebar')
+        @include('admin.include.sidebar')
         <!-- End Sidebar -->
 
         <div class="content-page">
             <!-- Start content -->
-            <div class="content">  
-                
-               @yield('content')
+            <div class="content">
+
+                @yield('content')
 
             </div>
             <!-- END content -->
@@ -38,9 +38,9 @@
         </div>
         <!-- END content-page -->
 
-         <!-- start footer -->
-          @include('admin.include.footer')
-         <!-- end footer -->
+        <!-- start footer -->
+        @include('admin.include.footer')
+        <!-- end footer -->
 
         <script src="{{asset('admin/assets/js/modernizr.min.js')}}"></script>
         <script src="{{asset('admin/assets/js/jquery.min.js')}}"></script>
@@ -73,16 +73,29 @@
 
     <!-- Charts data -->
     <script src="{{asset('admin/assets/data/data_charts_dashboard.js')}}"></script>
-    <script>
-        $(document).on('ready', function() {
-            // data-tables
-            
-   
+   <script>
+        $(document).ready(function() {
+            if($.fn.counterUp) {
+                $('.counter').counterUp({
+                    delay: 10,
+                    time: 600
+                });
+            }
 
-            // counter-up
-            $('.counter').counterUp({
-                delay: 10,
-                time: 600
+            $(document).on('click', '.dropdown-toggle', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); 
+                
+                var $parent = $(this).parent('.dropdown');
+                
+                $('.dropdown').not($parent).removeClass('show').find('.dropdown-menu').removeClass('show');
+                $parent.toggleClass('show').find('.dropdown-menu').toggleClass('show');
+            });
+
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.dropdown').length) {
+                    $('.dropdown').removeClass('show').find('.dropdown-menu').removeClass('show');
+                }
             });
         });
     </script>
