@@ -11,10 +11,39 @@ use Illuminate\Http\UploadedFile;
 
 class CustomerRepository
 {
+    public function getTotalCount(): int
+    {
+        return Customer::count();
+    }
+
+    public function getActiveCount(): int
+    {
+        return Customer::where('status', 1)->count();
+    }
+
+    public function getInactiveCount(): int
+    {
+        return Customer::where('status', 0)->count();
+    }
+
+    public function getNewThisMonthCount(): int
+    {
+        return Customer::whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->count();
+    }
+    
     public function getQueryForDataTable(): Builder
     {
         return Customer::query()->select([
-            'id', 'image', 'first_name', 'last_name', 'email', 'mobile', 'status', 'created_at'
+            'id',
+            'image',
+            'first_name',
+            'last_name',
+            'email',
+            'mobile',
+            'status',
+            'created_at'
         ]);
     }
 
@@ -94,7 +123,7 @@ class CustomerRepository
         // Extract raw key out of the full Supabase URL
         if (str_starts_with($imageUrl, $prefix)) {
             $key = str_replace($prefix, '', $imageUrl);
-            
+
             if (Storage::disk('s3')->exists($key)) {
                 Storage::disk('s3')->delete($key);
             }

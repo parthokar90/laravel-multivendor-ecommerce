@@ -14,6 +14,16 @@ class CustomerService
         $this->repository = $repository;
     }
 
+    public function getCustomerInsights(): array
+    {
+        return [
+            'total'      => $this->repository->getTotalCount(),
+            'active'     => $this->repository->getActiveCount(),
+            'inactive'   => $this->repository->getInactiveCount(),
+            'new_this_month' => $this->repository->getNewThisMonthCount(),
+        ];
+    }
+
     public function getDataTable()
     {
         $query = $this->repository->getQueryForDataTable();
@@ -28,14 +38,14 @@ class CustomerService
                 return '<img src="' . $url . '" class="img-thumbnail" width="40" height="40">';
             })
             ->editColumn('status', function ($customer) {
-                return $customer->status == 1 
-                    ? '<span class="badge badge-success">Active</span>' 
+                return $customer->status == 1
+                    ? '<span class="badge badge-success">Active</span>'
                     : '<span class="badge badge-danger">Inactive</span>';
             })
             ->addColumn('action', function ($customer) {
                 $editRoute = route('customers.edit', $customer->id);
                 $deleteRoute = route('customers.destroy', $customer->id);
-                
+
                 return '
                     <a href="' . $editRoute . '" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                     <form action="' . $deleteRoute . '" method="POST" style="display:inline-block;">

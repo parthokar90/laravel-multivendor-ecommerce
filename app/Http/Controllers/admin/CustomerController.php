@@ -25,7 +25,10 @@ class CustomerController extends Controller
         if ($request->ajax()) {
             return $this->customerService->getDataTable();
         }
-        return view('admin.customer.index');
+
+        $insights = $this->customerService->getCustomerInsights();
+
+        return view('admin.customer.index', compact('insights'));
     }
 
     public function create(): View
