@@ -3,7 +3,7 @@
 @section('title') Brand List @endsection
 
 @section('content')
- 
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-12">
@@ -20,46 +20,63 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0"><i class="fas fa-table"></i> Brand Directory</h3>
+                    <a href="{{ route('brands.create') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus"></i> Add New
+                    </a>
+                </div>
                 <div class="card-body">
-                       @include('admin.include.message')
-                       <div class="table-responsive">
-                            <table class="datatable table table-bordered table-hover display">
-                                <thead>
-                                    <tr>
-                                        <th>Sl</th>
-                                        <th>Brand</th>
-                                        <th>Image</th>
-                                        <th>Status</th> 
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                       </div>
-                  </div>
-             </div>
+                    @include('admin.include.message')
+                    <div class="table-responsive">
+                        <table class="datatable table table-bordered table-hover display">
+                            <thead>
+                                <tr>
+                                    <th>Sl</th>
+                                    <th>Brand</th>
+                                    <th>Image</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    $(function () {
-      var table = $('.datatable').DataTable({
-          processing: true,
-          serverSide: true,
-          ajax: "{{ route('brands.index') }}",
-          columns: [
-              {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-              {data: 'brand_name', name: 'brand_name'},
-              {data: 'image', name: 'image'},
-              {data: 'status', name: 'status'},
-              {
-                  data: 'action', 
-                  name: 'action', 
-                  orderable: true, 
-                  searchable: true,
-                  responsive: true
-              },
-          ]
-      });
+    $(function() {
+        var table = $('.datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('brands.index') }}",
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'brand_name',
+                    name: 'brand_name'
+                },
+                {
+                    data: 'image',
+                    name: 'image'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: true,
+                    searchable: true,
+                    responsive: true
+                },
+            ]
+        });
     });
-  </script>
-@endsection 
+</script>
+@endsection

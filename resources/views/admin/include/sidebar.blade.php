@@ -43,7 +43,7 @@
                 </li>
 
                 <li class="submenu">
-                    <a id="tables" class="@if($url==='products.index' || $url==='products.create' || $url==='products.edit') active @endif" href="#">
+                    <a id="tables" class="@if($url==='products.index' || $url==='products.create' || $url==='products.edit' || $url==='categories.index' || $url==='categories.create' || $url==='categories.edit' || $url==='brands.index' || $url==='brands.create' || $url==='brands.edit' || $url==='attributes.index' || $url==='attributes.create' || $url==='attributes.edit') active @endif" href="#">
                         <i class="fab fa-product-hunt"></i>
                         <span> Product </span>
                         <span class="menu-arrow"></span>
@@ -55,27 +55,27 @@
                         <li class="@if($url==='products.create') active @endif">
                             <a href="{{route('products.create')}}">Add New</a>
                         </li>
-                        <li>
-                            <a href="tables-datatable.html">Stock</a>
+                        <li class="@if($url==='categories.index') active @endif">
+                            <a href="{{route('categories.index')}}">Category</a>
                         </li>
-                        <li>
-                            <a href="tables-datatable.html">Product Review</a>
+                        <li class="@if($url==='brands.index') active @endif">
+                            <a href="{{route('brands.index')}}">Brand</a>
                         </li>
-                        <li>
-                            <a href="tables-datatable.html">Product Wishlist</a>
+                        <li class="@if($url==='attributes.index') active @endif">
+                            <a href="{{route('attributes.index')}}">Attribute</a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="submenu">
-                    <a id="tables" href="#">
+                    <a id="orders-menu" href="#">
                         <i class="fab fa-first-order-alt"></i>
                         <span>Order</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="list-unstyled">
                         <li>
-                            <a href="tables-basic.html">List</a>
+                            <a href="{{ route('orders.index') }}">List</a>
                         </li>
                     </ul>
                 </li>
@@ -94,54 +94,6 @@
                 </li>
 
                 <li class="submenu">
-                    <a id="tables" class="@if($url==='categories.index' || $url==='categories.create' || $url==='categories.edit') active @endif" href="#">
-                        <i class="fas fa-certificate"></i>
-                        <span>Category</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li class="@if($url==='categories.index') active @endif">
-                            <a href="{{route('categories.index')}}">List</a>
-                        </li>
-                        <li class="@if($url==='categories.create') active @endif">
-                            <a href="{{route('categories.create')}}">Add New</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="submenu">
-                    <a id="tables" class="@if($url==='brands.index' || $url==='brands.create' || $url==='brands.edit') active @endif" href="#">
-                        <i class="fab fa-bandcamp"></i>
-                        <span>Brand</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li class="@if($url==='brands.index') active @endif">
-                            <a href="{{route('brands.index')}}">List</a>
-                        </li>
-                        <li class="@if($url==='brands.create') active @endif">
-                            <a href="{{route('brands.create')}}">Add New</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="submenu">
-                    <a id="tables" class="@if($url==='attributes.index' || $url==='attributes.create' || $url==='attributes.edit') active @endif" href="#">
-                        <i class="fab fa-vaadin"></i>
-                        <span>Attribute</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li class="@if($url==='attributes.index') active @endif">
-                            <a href="{{route('attributes.index')}}">List</a>
-                        </li>
-                        <li class="@if($url==='attributes.create') active @endif">
-                            <a href="{{route('attributes.create')}}">Add New</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="submenu">
                     <a class="@if($url==='countries.index') active @endif" id="tables" href="#">
                         <i class="fas fa-flag"></i>
                         <span>Country</span>
@@ -153,7 +105,6 @@
                         </li>
                     </ul>
                 </li>
-
 
                 <li class="submenu">
                     <a id="tables" href="#">
@@ -188,38 +139,6 @@
                     <a id="tables" href="#">
                         <i class="fas fa-truck"></i>
                         <span>Delivery Charge</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="tables-basic.html">List</a>
-                        </li>
-                        <li>
-                            <a href="tables-datatable.html">Add New</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="submenu">
-                    <a id="tables" href="#">
-                        <i class="fas fa-skull"></i>
-                        <span>Login Bonus</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="tables-basic.html">List</a>
-                        </li>
-                        <li>
-                            <a href="tables-datatable.html">Add New</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="submenu">
-                    <a id="tables" href="#">
-                        <i class="fas fa-gift"></i>
-                        <span>Gift Card</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="list-unstyled">

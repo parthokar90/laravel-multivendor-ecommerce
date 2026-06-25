@@ -9,7 +9,8 @@ use App\Models\admin\AttributeValue;
 class ProductAttribute extends Model
 {
     //this function show attribute value name
-    public function attributeValue(){
-        return $this->belongsTo(AttributeValue::class,'value_id');
+    public function attributeValue()
+    {
+        return $this->belongsTo(AttributeValue::class, 'value_id');
     }
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
@@ -9,41 +9,38 @@ use App\Http\Controllers\admin\AttributeController;
 use App\Http\Controllers\admin\VendorController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\CustomerController;
+use App\Http\Controllers\admin\OrderController;
+
+Route::get('/login/admin', [LoginController::class, 'showAdminLoginForm']);
+Route::post('/login/admin', [LoginController::class, 'adminLogin'])->name('admin.login');
 
 
-//login route start
-  Route::get('/login/admin', [LoginController::class, 'showAdminLoginForm']);
-  Route::post('/login/admin', [LoginController::class,'adminLogin'])->name('admin.login');
-//login route end
+Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-//dashboard route start
-  Route::get('admin/dashboard', [DashboardController::class,'index'])->name('admin.dashboard');
-//dashboard route end
+Route::resource('categories', CategoryController::class);
 
-//category route start
-  Route::resource('categories',CategoryController::class);
-//category route end
 
-//brand route start
-  Route::resource('brands',BrandController::class);
-//brand route end
+Route::resource('brands', BrandController::class);
 
-//category route start
-  Route::resource('countries',CountryController::class);
-//category route end
+Route::resource('countries', CountryController::class);
 
-//attribute route start
-  Route::resource('attributes',AttributeController::class);
-  Route::post('attributes/value/{id}',[AttributeController::class,'attributeValue'])->name('attribute.value');
-//attribute route end
 
-//vendor route start
-  Route::resource('vendors',VendorController::class);
-//vendor route end
+Route::resource('attributes', AttributeController::class);
+Route::post('attributes/value/{id}', [AttributeController::class, 'attributeValue'])->name('attribute.value');
 
-//product route start
-  Route::resource('products',ProductController::class);
-  Route::get('att/value/{id}',[ProductController::class,'attributeValue'])->name('att.values');
-//product route end
 
- Route::resource('customers', CustomerController::class);
+Route::resource('vendors', VendorController::class);
+
+
+Route::resource('products', ProductController::class);
+Route::get('att/value/{id}', [ProductController::class, 'attributeValue'])->name('att.values');
+
+
+Route::resource('customers', CustomerController::class);
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () {
+  Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+  Route::get('orders/{id}/show', [OrderController::class, 'show'])->name('orders.show');
+  Route::get('orders/{id}/edit', [OrderController::class, 'edit'])->name('orders.edit');
+  Route::put('orders/{id}/update', [OrderController::class, 'update'])->name('orders.update');
+});
